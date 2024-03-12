@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+    path: Assets/Scenes/WW_Overworld.unity
+    guid: c343d64d549f1c84fa0dd0f651396f0e
+  - enabled: 1
+    path: Assets/Scenes/WW_Job_Farming.unity
+    guid: 6e90e2692c667464ea6bc55e8a3e01d5
   m_configObjects: {}

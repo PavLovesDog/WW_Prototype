@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -19,7 +20,15 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
-        TransitionTo(new P_IdleState(this));
+        // Get the active scene
+        Scene scene = SceneManager.GetActiveScene();
+        int sceneIndex = scene.buildIndex; // get its build index to compare for starting states
+
+        //NOTE Adjust this if other scenes will require player movement
+        if (sceneIndex == 0) // the overworld scene
+            TransitionTo(new P_IdleState(this));
+        else // scene is a job scene
+            TransitionTo(new P_InteractingState(this));
     }
 
     void Update()
