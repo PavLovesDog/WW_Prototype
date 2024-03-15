@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerStateMachine : MonoBehaviour
+public class PlayerStateMananger : MonoBehaviour
 {
-    private PlayerState currentState;
+    private PlayerController currentState;
 
     //State Enums to show visually in inspector what our enemy is doing
     public enum State
@@ -36,7 +36,7 @@ public class PlayerStateMachine : MonoBehaviour
         currentState?.OnStateUpdate();
     }
 
-    public void TransitionTo(PlayerState newState)
+    public void TransitionTo(PlayerController newState)
     {
         currentState?.OnStateExit();
         currentState = newState;

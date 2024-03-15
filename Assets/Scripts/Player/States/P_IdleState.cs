@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class P_IdleState : PlayerState
+public class P_IdleState : PlayerController
 {
     //constructor
-    public P_IdleState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) { }
+    public P_IdleState(PlayerStateMananger playerStateManager) : base(playerStateManager) { }
 
     //TEMP Variables
     float maxAngle = 10.0f; // amgle at which to rotate for temp animation
@@ -16,7 +16,7 @@ public class P_IdleState : PlayerState
         //base.OnStateEnter();
 
         //update state
-        player.state = PlayerStateMachine.State.IDLE;
+        player.state = PlayerStateMananger.State.IDLE;
         Debug.Log("Entering State: IDLE");
 
         //do other idle intro stuff

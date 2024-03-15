@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2982.5579, g: 2572.3167, b: 2107.2932, a: 1}
+  m_IndirectSpecularColor: {r: 2980.0452, g: 2570.3674, b: 2106.551, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2478,7 +2478,7 @@ GameObject:
   - component: {fileID: 1872439956}
   - component: {fileID: 1872439957}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: Mini Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2530,7 +2530,8 @@ MonoBehaviour:
   scrollSpeed: 2
   currentArrowsInPlay: 0
   totalArrowsInPlay: 10
-  spawnDelay: 1.2
+  spawnDelayMin: 0.5
+  spawnDelayMax: 2
   canHitLeftArrow: 0
   canHitUpArrow: 0
   canHitDownArrow: 0

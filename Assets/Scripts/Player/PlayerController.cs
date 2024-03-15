@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerState : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
-    protected PlayerStateMachine player;
+    protected PlayerStateMananger player;
 
     [Header("Actor variables")]
     public GameObject playerActor;
@@ -20,7 +20,7 @@ public abstract class PlayerState : MonoBehaviour
     private List<Interactable> lastInteractables = new List<Interactable>();
 
     //constructor
-    public PlayerState(PlayerStateMachine player)
+    public PlayerController(PlayerStateMananger player)
     {
         this.player = player;
 

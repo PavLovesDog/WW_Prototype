@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class P_LocomotionState : PlayerState
+public class P_LocomotionState : PlayerController
 {
     //constructor
-    public P_LocomotionState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) { }
+    public P_LocomotionState(PlayerStateMananger playerStateManager) : base(playerStateManager) { }
 
     //What happens on Entering LOCOMOTION state?
     public override void OnStateEnter()
@@ -13,7 +13,7 @@ public class P_LocomotionState : PlayerState
         //base.OnStateEnter();
 
         //update state
-        player.state = PlayerStateMachine.State.LOCOMOTION;
+        player.state = PlayerStateMananger.State.LOCOMOTION;
         Debug.Log("Entering State: LOCOMOTION");
 
         //reset sprite rotations from testing anims
