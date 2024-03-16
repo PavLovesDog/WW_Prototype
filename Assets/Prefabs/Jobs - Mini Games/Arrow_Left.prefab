@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 43276630964573083}
   m_Layer: 0
   m_Name: Arrow_Left
-  m_TagString: Untagged
+  m_TagString: Arrow_Left
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113578b69cd0124f91ad790a62bef00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitPoint: 0
+  inHitPoint: 0
+  canReset: 0
 --- !u!54 &43276630964573083
 Rigidbody:
   m_ObjectHideFlags: 0

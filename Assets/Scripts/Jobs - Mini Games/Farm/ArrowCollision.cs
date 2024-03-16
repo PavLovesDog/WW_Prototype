@@ -9,11 +9,14 @@ public class ArrowCollision : MonoBehaviour
     public bool inHitPoint = false;
     public bool canReset = false;
     MiniGameManager_Farm MGManager;
+    const string suffix = "(Clone)";
 
     private void Awake()
     {
         //should only be one manager
         MGManager = GameObject.FindAnyObjectByType<MiniGameManager_Farm>();
+
+        //Debug.Log(gameObject.name);
     }
 
     private void Update()
@@ -30,6 +33,25 @@ public class ArrowCollision : MonoBehaviour
         }
     }
 
+    private void SwitchArrowSpecificHitBools(bool state)
+    {
+        switch (gameObject.name) // names will be the same as saved prefab
+        {
+            case "Arrow_Left" + suffix:
+                MGManager.canHitLeftArrow = state;
+                break;
+            case "Arrow_Up" + suffix:
+                MGManager.canHitUpArrow = state;
+                break;
+            case "Arrow_Down" + suffix:
+                MGManager.canHitDownArrow = state;
+                break;
+            case "Arrow_Right" + suffix:
+                MGManager.canHitRightArrow = state;
+                break;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("HitPoint"))
@@ -37,6 +59,7 @@ public class ArrowCollision : MonoBehaviour
             // Handle the collision event
             // (e.g., score increment, play sound, etc.)
             //Debug.Log(gameObject.name + ": hit " + other.name);
+            SwitchArrowSpecificHitBools(true);
 
             inHitPoint = true;
         }
@@ -47,6 +70,7 @@ public class ArrowCollision : MonoBehaviour
         if (other.CompareTag("HitPoint"))
         {
             //keep bool true
+            SwitchArrowSpecificHitBools(true);
             inHitPoint = true;
         }
     }
@@ -56,6 +80,7 @@ public class ArrowCollision : MonoBehaviour
         if(other.CompareTag("HitPoint"))
         {
             // "deactivate"
+            SwitchArrowSpecificHitBools(false);
             inHitPoint = false;
         }
     }

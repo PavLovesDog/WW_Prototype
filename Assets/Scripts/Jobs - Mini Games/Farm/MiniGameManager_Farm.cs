@@ -34,6 +34,10 @@ public class MiniGameManager_Farm : MonoBehaviour
     public GameObject rightArrow;
     public GameObject upArrow;
     public GameObject downArrow;
+    int lnum = 0;
+    int Unum = 0;
+    int Dnum = 0;
+    int Rnum = 0;
 
 
     private void Update()
@@ -64,6 +68,7 @@ public class MiniGameManager_Farm : MonoBehaviour
                 //get which arrow to instantiate randomly
                 GameObject arrow = SelectRandomArrow();
                 GameObject arrowToAdd = new GameObject();
+                
                 //Debug.Log(arrow.name);
 
                 // spawn arrows in their correct lanes, i.e parented. (left arrow in lane 1(lanes[0]), up arrow in lane 2(lanes[1]), etc.)
@@ -71,15 +76,23 @@ public class MiniGameManager_Farm : MonoBehaviour
                 {
                     case "Arrow_Left":
                         arrowToAdd = Instantiate(arrow, arrowSpawnPoints[0].transform.position, new Quaternion(0,0,0,0), lanes[0].transform);
+                        arrowToAdd.name = "Arrow_Left" + lnum.ToString();
+                        lnum++;
                         break;
                     case "Arrow_Up":
                         arrowToAdd = Instantiate(arrow, arrowSpawnPoints[1].transform.position, new Quaternion(0, 0, 0, 0), lanes[1].transform);
+                        arrowToAdd.name = "Arrow_Up" + Unum.ToString();
+                        Unum++;
                         break;
                     case "Arrow_Down":
                         arrowToAdd = Instantiate(arrow, arrowSpawnPoints[2].transform.position, new Quaternion(0, 0, 0, 0), lanes[2].transform);
+                        arrowToAdd.name = "Arrow_Down" + Dnum.ToString();
+                        Dnum++;
                         break;
                     case "Arrow_Right":
                         arrowToAdd = Instantiate(arrow, arrowSpawnPoints[3].transform.position, new Quaternion(0, 0, 0, 0), lanes[3].transform);
+                        arrowToAdd.name = "Arrow_Right" + Rnum.ToString();
+                        Rnum++;
                         break;
 
                 }
@@ -95,35 +108,64 @@ public class MiniGameManager_Farm : MonoBehaviour
         
         }
 
-        // handle each arrow on screen, iterate backwards through for safe removal
+        CheckArrowsForRemoval();
+
+        //// handle each arrow on screen, iterate backwards through for safe removal
+        //for (int i = arrowsOnScreen.Count - 1; i >= 0; i--)
+        //{
+        //    GameObject arrow = arrowsOnScreen[i];
+        //    if (arrow != null)
+        //    {
+        //        //get the arrow unique script
+        //        ArrowCollision script = arrow.GetComponent<ArrowCollision>();
+        //        Debug.Log(script.canReset);
+        //
+        //        //listen for when an arrow is now out of screen view
+        //        if (script.canReset)
+        //        {
+        //            Debug.Log(arrow.name + " CAN reset");
+        //            //reset bool
+        //            script.canReset = false;
+        //
+        //            //arrows are now off screen,
+        //            //remove them from list
+        //            arrowsOnScreen.RemoveAt(i);
+        //
+        //            currentArrowsInPlay--;
+        //            //destroy them after
+        //            StartCoroutine(DelayedDestroyObject(arrow));
+        //        }
+        //    }
+        //}
+    }
+
+    private void CheckArrowsForRemoval()
+    {
         for (int i = arrowsOnScreen.Count - 1; i >= 0; i--)
         {
             GameObject arrow = arrowsOnScreen[i];
-            if (arrow != null)
+            if (arrow == null)
             {
-                //get the arrow unique script
+                arrowsOnScreen.RemoveAt(i); // Just in case there's a null reference
+                continue;
+            }
+            else if (arrow != null)
+            {
                 ArrowCollision script = arrow.GetComponent<ArrowCollision>();
-                Debug.Log(script.canReset);
-
-                //listen for when an arrow is now out of screen view
-                if (script.canReset)
+                if (script != null && script.canReset)
                 {
-                    Debug.Log(arrow.name + " CAN reset");
-                    //reset bool
+                    //Debug.Log(arrow.name + " CAN reset");
+                    // Consider adding a flag or state to indicate it's being destroyed
                     script.canReset = false;
-
-                    //arrows are now off screen,
-                    //remove them from list
                     arrowsOnScreen.RemoveAt(i);
-
                     currentArrowsInPlay--;
-                    //destroy them after
+
                     StartCoroutine(DelayedDestroyObject(arrow));
                 }
             }
         }
     }
-    
+
     //Buddy Method for SpawnArrows()
     private GameObject SelectRandomArrow()
     {
@@ -160,12 +202,12 @@ public class MiniGameManager_Farm : MonoBehaviour
             SpriteRenderer hitArrowSprite = hitPoints[0].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-            //if (true /*any arrow in the left lanbe is registering true*/)
-            //{
-            //    Debug.Log("HIT the LEFT arrow");
-            //    //play a little particle effect to show hit
-            //    //play audio to show hit
-            //}
+            if (canHitLeftArrow)
+            {
+                Debug.Log("HIT the LEFT arrow");
+                //play a little particle effect to show hit
+                //play audio to show hit
+            }
         }
 
 
@@ -174,10 +216,10 @@ public class MiniGameManager_Farm : MonoBehaviour
             SpriteRenderer hitArrowSprite = hitPoints[1].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-            //if (arrowsOnScreen != null && arrowsOnScreen[1].HitPoint == true)
-            //{
-            //    Debug.Log("HIT the UP arrow");
-            //}
+            if (canHitUpArrow)
+            {
+                Debug.Log("HIT the UP arrow");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -185,10 +227,10 @@ public class MiniGameManager_Farm : MonoBehaviour
             SpriteRenderer hitArrowSprite = hitPoints[2].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-            //if (arrowsOnScreen != null && arrowsOnScreen[2].HitPoint == true)
-            //{
-            //    Debug.Log("HIT the DOWN arrow");
-            //}
+            if (canHitDownArrow)
+            {
+                Debug.Log("HIT the DOWN arrow");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -196,12 +238,12 @@ public class MiniGameManager_Farm : MonoBehaviour
             SpriteRenderer hitArrowSprite = hitPoints[3].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-            //if (arrowsOnScreen != null && arrowsOnScreen[3].HitPoint == true)
-            //{
-            //    Debug.Log("HIT the RIGHT arrow");
-            //}
+            if (canHitRightArrow)
+            {
+                Debug.Log("HIT the RIGHT arrow");
+            }
         }
-        //if the corresponding arrow bool is enabled, register a hit
+        ////if the corresponding arrow bool is enabled, register a hit
     }
 
     //buddy coroutine for Input press
@@ -222,8 +264,9 @@ public class MiniGameManager_Farm : MonoBehaviour
     IEnumerator DelayedDestroyObject(GameObject objectToDelete) 
     { 
         yield return new WaitForEndOfFrame();
-        
-        Destroy(objectToDelete);
+
+        if (objectToDelete != null)
+            Destroy(objectToDelete);
     }
     
     

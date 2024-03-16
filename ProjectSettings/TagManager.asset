@@ -9,6 +9,10 @@ TagManager:
   - InteractableNPC
   - InteractableObject
   - HitPoint
+  - Arrow_Down
+  - Arrow_Up
+  - Arrow_Left
+  - Arrow_Right
   layers:
   - Default
   - TransparentFX
