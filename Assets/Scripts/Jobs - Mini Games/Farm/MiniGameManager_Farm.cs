@@ -9,33 +9,14 @@ using UnityEngine.Rendering.HighDefinition;
 public class MiniGameManager_Farm : MonoBehaviour
 {
 
-    [Header("Lanes")]
+    [Header("Lanes & Spawn Points")]
     public GameObject[] lanes;
+    public Transform[] arrowSpawnPoints;
 
     [Header("Arrows")]
     public GameObject[] hitPoints;
     private List<GameObject> arrowsOnScreen = new List<GameObject>();
     private List<GameObject> currentArrowsOnScreen;
-
-    [Header("Arrow Spawn Points")]
-    public Transform[] arrowSpawnPoints;
-
-    [Header("Game variables")]
-    public int hitsForCompletion = 30;
-    public int currentHits = 0;
-    [Tooltip("Speed at which arrows will scroll down the screen/move")] public float scrollSpeed;
-    public int currentArrowsInPlay;
-    public int totalArrowsInPlay = 10;
-    public float spawnDelayMin = 0.5f;
-    public float spawnDelayMax = 2f;
-    private float spawnTimer = 0f;
-
-    public bool canHitLeftArrow = false;
-    public bool canHitUpArrow = false;
-    public bool canHitDownArrow = false;
-    public bool canHitRightArrow = false;
-
-    [Header("Prefabs")]
     public GameObject leftArrow;
     public GameObject rightArrow;
     public GameObject upArrow;
@@ -44,7 +25,31 @@ public class MiniGameManager_Farm : MonoBehaviour
     int Unum = 0;
     int Dnum = 0;
     int Rnum = 0;
-    
+
+    [Header("Game variables")]
+    public int hitsToWin = 30;
+    public int currentHits = 0;
+    [Tooltip("Speed at which arrows will scroll down the screen/move")] public float scrollSpeed;
+    public int currentArrowsInPlay;
+    public int totalArrowsInPlay = 10;
+    public float spawnDelayMin = 2f; // 0.5 is a good bottom line
+    public float spawnDelayMax = 3f;
+    private float spawnTimer = 0f;
+    public bool canHitLeftArrow = false;
+    public bool canHitUpArrow = false;
+    public bool canHitDownArrow = false;
+    public bool canHitRightArrow = false;
+
+    [Header("Difficulty Management")]
+    public float difficultySegments = 0; // set in inspector (currently at 6)
+    public float numberOfDifficultySegments = 0;
+    public int hitCounter = 0;
+    // Change variables (these will be determined by calculations based off difficulty segments, within their range)
+    public float minSpawnDelayChange;
+    public float maxSpawnDelayChange;
+    public float scrollSpeedChange;
+    public float arrowsInPlayChange;
+
     [Header("Cloud Variables")]
     public Volume globalVolume;
     private VolumetricClouds cloudsSettings;
@@ -55,29 +60,94 @@ public class MiniGameManager_Farm : MonoBehaviour
     public float minCloudCoverage = 0;
     [Tooltip("Control amount of clouds in sky, smaller values = more clouds (0-1))")] 
     public float currentCloudCoverage = 1;
-    public float cloudCoverageChange = 0.005f;
+    public float cloudCoverageChange = 0.05f;
 
     private void Start()
     {
+        //Find the cloud settings for runtime manipulation
         if (globalVolume.profile.TryGet<VolumetricClouds>(out cloudsSettings))
         {
             // Successfully retrieved the clouds settings
         }
-
-        //find and assign clouds based on "globalVolume" set in inspector
-        //cloudsSettings = globalVolume.GetComponent<VolumetricClouds>();
     }
     
 
 
     private void Update()
     {
-        //MoveArrows();
         SpawnArrows();
-        HandlePlayerInput();
+        HandleInteractionAndScoring();
+        HandleIncreasingDifficulty();
     }
 
+    private void HandleIncreasingDifficulty()
+    {
+        // based on total amount of "hits"
+        // divide the total of hitsToWin by num of segments/phases
+        numberOfDifficultySegments = hitsToWin / difficultySegments; // this is how many "phases" of difficulty there will be per round
+        numberOfDifficultySegments = Mathf.Floor(numberOfDifficultySegments); // ensure its an int
 
+        //Calculate difficulty for each Change Variable based on number of segemnts
+        //Calculate: minSpawnDelayChange - between the range of 0.5 - 2.5
+        //Calculate: maxSpawnDelayChange - between the range of 1 - 3.5
+        //Calculate: scrollSpeedChange   - between the range of 1.5 - 5
+        //Calculate: arrowsInPlayChange  - between the range of 10 - 30
+        minSpawnDelayChange = (0.25f - 2.5f) / difficultySegments; // Negative value, because it decreases
+        maxSpawnDelayChange = (1f - 3.5f) / difficultySegments; // Negative value, because it decreases
+        scrollSpeedChange = (3f - 1.5f) / difficultySegments; // Positive value, because it increases
+        arrowsInPlayChange = (30 - 10) / difficultySegments; // Positive value, because it increases
+
+        // at every interval of numberOfDifficultySegments
+        if (hitCounter == numberOfDifficultySegments)
+        {
+            hitCounter = 0; // reset to count up to determine when next difficulty phase happens
+
+            // Adjust min/max spawn delays within their respective ranges
+            spawnDelayMin = Mathf.Max(0.25f, spawnDelayMin + minSpawnDelayChange);
+            spawnDelayMax = Mathf.Max(1f, spawnDelayMax + maxSpawnDelayChange);
+
+            // Adjust the scroll speed, clamping within the range
+            scrollSpeed = Mathf.Clamp(scrollSpeed + scrollSpeedChange, 1.5f, 3f);
+
+            // Adjust the number of arrows in play, clamping within the range
+            totalArrowsInPlay = (int)Mathf.Clamp(totalArrowsInPlay + arrowsInPlayChange, 10, 30);
+
+            //// adjust the min/max spawn delays
+            //if(spawnDelayMin >= 0.5f && spawnDelayMin <= 2.5f) // keep changes within range
+            //{
+            //    //DECREASE
+            //    //spawnDelayMin += minSpawnDelayChange
+            //}
+            //if (spawnDelayMax >= 1f && spawnDelayMax <= 3.5f) // keep changes within range
+            //{
+            //    //DECREASE
+            //    //spawnDelayMax += maxSpawnDelayChange
+            //}
+            //
+            //// adjust the scroll speed slightly faster
+            //if (scrollSpeed >= 10 && scrollSpeed <= 30)
+            //{
+            //    //INCREASE
+            //    //have this change based on number of segments and total hitsToWin
+            //    //scrollSpeed += scrollSpeedChange
+            //}
+            //
+            //// adjust amount of arrows allowed on screen
+            //if (currentArrowsInPlay >= 10 && currentArrowsInPlay <= 30)
+            //{
+            //    //INCREASE
+            //    //currentArrowsInPlay += arrowsInPlayChange
+            //}
+        }
+
+        //listen for game over event
+        if(currentHits >= hitsToWin)
+        {
+            //show end screen
+        }
+    }
+
+    #region Arrow SPawning Logic
     private void SpawnArrows()
     {
         //set a number of arrows to spawn
@@ -207,8 +277,24 @@ public class MiniGameManager_Farm : MonoBehaviour
         return arrow;
     }
 
-    //TODO think of way to handle hit recognition
-    private void HandlePlayerInput()
+    //Coroutine to delete an arrow after delay
+    IEnumerator DelayedDestroyObject(GameObject objectToDelete, int index, List<GameObject> list) 
+    { 
+        yield return new WaitForEndOfFrame();
+
+        if (objectToDelete != null)
+        {
+            currentArrowsInPlay--;
+            list.RemoveAt(index); // remove object form list
+            Destroy(objectToDelete); // remove object from game
+            arrowsOnScreen = currentArrowsOnScreen; // reassign original list
+            //StartCoroutine(UpdateList());
+        }
+    }
+    #endregion
+    
+    
+    private void HandleInteractionAndScoring()
     {
         //listen for key press, each individually
         if(Input.GetKeyDown(KeyCode.LeftArrow))
@@ -222,9 +308,17 @@ public class MiniGameManager_Farm : MonoBehaviour
                 Debug.Log("HIT the LEFT arrow");
                 //increment hit counter
                 currentHits++;
+                hitCounter++;
+
                 //play a little particle effect to show hit
                 //play audio to show hit
-                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
+
+                //Cloud coverage
+                if(cloudsSettings.shapeFactor.value >= 0.3f) // clamp to bottom point (this is for good looking rain clouds)
+                    cloudsSettings.shapeFactor.value -= cloudCoverageChange;
+
+                //cloud density
+                cloudsSettings.densityMultiplier.value += densityChange;
             }
         }
 
@@ -238,6 +332,7 @@ public class MiniGameManager_Farm : MonoBehaviour
             {
                 Debug.Log("HIT the UP arrow");
                 currentHits++;
+                hitCounter++;
                 cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
@@ -251,6 +346,7 @@ public class MiniGameManager_Farm : MonoBehaviour
             {
                 Debug.Log("HIT the DOWN arrow");
                 currentHits++;
+                hitCounter++;
                 cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
@@ -264,6 +360,7 @@ public class MiniGameManager_Farm : MonoBehaviour
             {
                 Debug.Log("HIT the RIGHT arrow");
                 currentHits++;
+                hitCounter++;
                 cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
@@ -296,18 +393,4 @@ public class MiniGameManager_Farm : MonoBehaviour
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, dullAlpha);
     }
     
-    //Coroutine to delete an arrow after delay
-    IEnumerator DelayedDestroyObject(GameObject objectToDelete, int index, List<GameObject> list) 
-    { 
-        yield return new WaitForEndOfFrame();
-
-        if (objectToDelete != null)
-        {
-            currentArrowsInPlay--;
-            list.RemoveAt(index); // remove object form list
-            Destroy(objectToDelete); // remove object from game
-            arrowsOnScreen = currentArrowsOnScreen; // reassign original list
-            //StartCoroutine(UpdateList());
-        }
-    }
 }
