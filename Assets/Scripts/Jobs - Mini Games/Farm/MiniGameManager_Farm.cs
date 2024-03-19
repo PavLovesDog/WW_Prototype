@@ -9,6 +9,9 @@ using UnityEngine.Rendering.HighDefinition;
 public class MiniGameManager_Farm : MonoBehaviour
 {
 
+    [Header("References")]
+    public GameManager gm;
+
     [Header("Lanes & Spawn Points")]
     public GameObject[] lanes;
     public Transform[] arrowSpawnPoints;
@@ -64,6 +67,8 @@ public class MiniGameManager_Farm : MonoBehaviour
 
     private void Start()
     {
+        //get reference to the Game Manager
+        gm = FindAnyObjectByType<GameManager>();
         //Find the cloud settings for runtime manipulation
         if (globalVolume.profile.TryGet<VolumetricClouds>(out cloudsSettings))
         {
@@ -144,6 +149,7 @@ public class MiniGameManager_Farm : MonoBehaviour
         if(currentHits >= hitsToWin)
         {
             //show end screen
+            MiniGameEnd();
         }
     }
 
@@ -393,4 +399,12 @@ public class MiniGameManager_Farm : MonoBehaviour
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, dullAlpha);
     }
     
+
+    //when the mini game ends (only a temp title)
+    void MiniGameEnd()
+    {
+        //probably get the xp gained from score
+        int xpGained = 100;
+        gm.AddPlayerExperience(xpGained); 
+    }
 }

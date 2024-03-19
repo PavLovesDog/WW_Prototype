@@ -13,6 +13,7 @@ TagManager:
   - Arrow_Up
   - Arrow_Left
   - Arrow_Right
+  - GameManager
   layers:
   - Default
   - TransparentFX

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2685.797, g: 2882.4963, b: 3458.645, a: 1}
+  m_IndirectSpecularColor: {r: 2686.7522, g: 2883.1057, b: 3459.0122, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -717,6 +717,53 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 686869871}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &857502639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857502641}
+  - component: {fileID: 857502640}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &857502640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857502639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7fbffa3814ccb4b815c2537f7441ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillExperience: []
+  skillNeededExperience: []
+  skillLevel: 
+--- !u!4 &857502641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857502639}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &868284018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1149,7 +1196,7 @@ GameObject:
   - component: {fileID: 1115116613}
   m_Layer: 0
   m_Name: EventSystem
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3117,6 +3164,7 @@ SceneRoots:
   - {fileID: 1830746043}
   - {fileID: 1823688467}
   - {fileID: 1115116615}
+  - {fileID: 857502641}
   - {fileID: 1666197626}
   - {fileID: 2013410475}
   - {fileID: 3386122568471451177}
