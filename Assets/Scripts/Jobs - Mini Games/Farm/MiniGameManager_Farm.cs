@@ -1,22 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class MiniGameManager_Farm : MonoBehaviour
 {
+
     [Header("Lanes")]
     public GameObject[] lanes;
 
     [Header("Arrows")]
     public GameObject[] hitPoints;
-    public List<GameObject> arrowsOnScreen;
+    private List<GameObject> arrowsOnScreen = new List<GameObject>();
+    private List<GameObject> currentArrowsOnScreen;
 
     [Header("Arrow Spawn Points")]
     public Transform[] arrowSpawnPoints;
 
     [Header("Game variables")]
+    public int hitsForCompletion = 30;
+    public int currentHits = 0;
     [Tooltip("Speed at which arrows will scroll down the screen/move")] public float scrollSpeed;
     public int currentArrowsInPlay;
     public int totalArrowsInPlay = 10;
@@ -38,6 +44,30 @@ public class MiniGameManager_Farm : MonoBehaviour
     int Unum = 0;
     int Dnum = 0;
     int Rnum = 0;
+    
+    [Header("Cloud Variables")]
+    public Volume globalVolume;
+    private VolumetricClouds cloudsSettings;
+    public float maxDensity = 1;
+    [Tooltip("Control how much light is let through clouds (0 - 1)")] 
+    public float currentDensity = 0;
+    public float densityChange = 0.005f;
+    public float minCloudCoverage = 0;
+    [Tooltip("Control amount of clouds in sky, smaller values = more clouds (0-1))")] 
+    public float currentCloudCoverage = 1;
+    public float cloudCoverageChange = 0.005f;
+
+    private void Start()
+    {
+        if (globalVolume.profile.TryGet<VolumetricClouds>(out cloudsSettings))
+        {
+            // Successfully retrieved the clouds settings
+        }
+
+        //find and assign clouds based on "globalVolume" set in inspector
+        //cloudsSettings = globalVolume.GetComponent<VolumetricClouds>();
+    }
+    
 
 
     private void Update()
@@ -109,58 +139,43 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
 
         CheckArrowsForRemoval();
-
-        //// handle each arrow on screen, iterate backwards through for safe removal
-        //for (int i = arrowsOnScreen.Count - 1; i >= 0; i--)
-        //{
-        //    GameObject arrow = arrowsOnScreen[i];
-        //    if (arrow != null)
-        //    {
-        //        //get the arrow unique script
-        //        ArrowCollision script = arrow.GetComponent<ArrowCollision>();
-        //        Debug.Log(script.canReset);
-        //
-        //        //listen for when an arrow is now out of screen view
-        //        if (script.canReset)
-        //        {
-        //            Debug.Log(arrow.name + " CAN reset");
-        //            //reset bool
-        //            script.canReset = false;
-        //
-        //            //arrows are now off screen,
-        //            //remove them from list
-        //            arrowsOnScreen.RemoveAt(i);
-        //
-        //            currentArrowsInPlay--;
-        //            //destroy them after
-        //            StartCoroutine(DelayedDestroyObject(arrow));
-        //        }
-        //    }
-        //}
     }
 
     private void CheckArrowsForRemoval()
     {
-        for (int i = arrowsOnScreen.Count - 1; i >= 0; i--)
+        //fill temp list to work on
+        currentArrowsOnScreen = new List<GameObject>(arrowsOnScreen);
+        bool foundArrowToDelete = false;
+
+        //iterate through in reverse, if removing elements from a list while iterating over it, its safer
+        for (int i = currentArrowsOnScreen.Count - 1; i >= 0; i--)
         {
-            GameObject arrow = arrowsOnScreen[i];
+            if(foundArrowToDelete)
+                break;
+
+            GameObject arrow = currentArrowsOnScreen[i];
             if (arrow == null)
             {
-                arrowsOnScreen.RemoveAt(i); // Just in case there's a null reference
+                currentArrowsOnScreen.RemoveAt(i); // Just in case there's a null reference
                 continue;
             }
             else if (arrow != null)
             {
+
                 ArrowCollision script = arrow.GetComponent<ArrowCollision>();
                 if (script != null && script.canReset)
                 {
                     //Debug.Log(arrow.name + " CAN reset");
-                    // Consider adding a flag or state to indicate it's being destroyed
-                    script.canReset = false;
-                    arrowsOnScreen.RemoveAt(i);
-                    currentArrowsInPlay--;
+                    // maybe adding a flag or state to indicate it's being destroyed
+                    //Debug.Log("DELETING: " + arrow.name);
+                    
+                    //Deletion & object cleanup
+                    StartCoroutine(DelayedDestroyObject(arrow, i, currentArrowsOnScreen));
 
-                    StartCoroutine(DelayedDestroyObject(arrow));
+                    //script.canReset = false;
+
+                    //leave loop as object has been found and deleted
+                    foundArrowToDelete = true;
                 }
             }
         }
@@ -205,8 +220,11 @@ public class MiniGameManager_Farm : MonoBehaviour
             if (canHitLeftArrow)
             {
                 Debug.Log("HIT the LEFT arrow");
+                //increment hit counter
+                currentHits++;
                 //play a little particle effect to show hit
                 //play audio to show hit
+                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
 
@@ -219,6 +237,8 @@ public class MiniGameManager_Farm : MonoBehaviour
             if (canHitUpArrow)
             {
                 Debug.Log("HIT the UP arrow");
+                currentHits++;
+                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
 
@@ -230,6 +250,8 @@ public class MiniGameManager_Farm : MonoBehaviour
             if (canHitDownArrow)
             {
                 Debug.Log("HIT the DOWN arrow");
+                currentHits++;
+                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
 
@@ -241,9 +263,22 @@ public class MiniGameManager_Farm : MonoBehaviour
             if (canHitRightArrow)
             {
                 Debug.Log("HIT the RIGHT arrow");
+                currentHits++;
+                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
         ////if the corresponding arrow bool is enabled, register a hit
+    }
+
+    private void TransitionCloudCoverage()
+    {
+        
+        //clouds.densityMultiplier
+    }
+
+    private void TransitionClouddensity()
+    {
+
     }
 
     //buddy coroutine for Input press
@@ -260,41 +295,19 @@ public class MiniGameManager_Farm : MonoBehaviour
         //make colour dull
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, dullAlpha);
     }
+    
     //Coroutine to delete an arrow after delay
-    IEnumerator DelayedDestroyObject(GameObject objectToDelete) 
+    IEnumerator DelayedDestroyObject(GameObject objectToDelete, int index, List<GameObject> list) 
     { 
         yield return new WaitForEndOfFrame();
 
         if (objectToDelete != null)
-            Destroy(objectToDelete);
+        {
+            currentArrowsInPlay--;
+            list.RemoveAt(index); // remove object form list
+            Destroy(objectToDelete); // remove object from game
+            arrowsOnScreen = currentArrowsOnScreen; // reassign original list
+            //StartCoroutine(UpdateList());
+        }
     }
-    
-    
-    // Move the arrows down the play area
-    // TODO, Randomize arrow placements & ensure and equal distance is always between arrows
-    // distance between arrows could be controlled to add difficulty as tiime went on
-    //private void MoveArrows()
-    //{
-    //    //Move Arrows down the playing field
-    //    foreach (ArrowCollision arrow in directionalArrows)
-    //    {
-    //        // move them down z axis at a speed
-    //        float zChange = Time.deltaTime * scrollSpeed; // apply movement speed to z xais
-    //        Vector3 translation = new Vector3(0, 0, zChange); // store in vector
-    //
-    //        arrow.gameObject.transform.localPosition += translation; // apply transformation
-    //
-    //        //if the get too far below parented object (Out Of View)
-    //        if (arrow.gameObject.transform.localPosition.z >= 6f)
-    //        {
-    //            Vector3 resetPos = arrow.transform.position;
-    //            resetPos.x = 0f;
-    //            resetPos.y = 0f;
-    //            resetPos.z = -10f;
-    //
-    //            arrow.gameObject.transform.localPosition = resetPos;
-    //        }
-    //    }
-    //}
-
 }

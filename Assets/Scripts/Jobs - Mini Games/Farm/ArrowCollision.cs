@@ -9,12 +9,11 @@ public class ArrowCollision : MonoBehaviour
     public bool inHitPoint = false;
     public bool canReset = false;
     MiniGameManager_Farm MGManager;
-    const string suffix = "(Clone)";
 
     private void Awake()
     {
         //should only be one manager
-        MGManager = GameObject.FindAnyObjectByType<MiniGameManager_Farm>();
+        MGManager = FindObjectOfType<MiniGameManager_Farm>();
 
         //Debug.Log(gameObject.name);
     }
@@ -35,20 +34,22 @@ public class ArrowCollision : MonoBehaviour
 
     private void SwitchArrowSpecificHitBools(bool state)
     {
-        switch (gameObject.name) // names will be the same as saved prefab
+        // Check if the gameObject's name contains any of the substrings
+        if (gameObject.name.Contains("Arrow_Left"))
         {
-            case "Arrow_Left" + suffix:
-                MGManager.canHitLeftArrow = state;
-                break;
-            case "Arrow_Up" + suffix:
-                MGManager.canHitUpArrow = state;
-                break;
-            case "Arrow_Down" + suffix:
-                MGManager.canHitDownArrow = state;
-                break;
-            case "Arrow_Right" + suffix:
-                MGManager.canHitRightArrow = state;
-                break;
+            MGManager.canHitLeftArrow = state;
+        }
+        else if (gameObject.name.Contains("Arrow_Up"))
+        {
+            MGManager.canHitUpArrow = state;
+        }
+        else if (gameObject.name.Contains("Arrow_Down"))
+        {
+            MGManager.canHitDownArrow = state;
+        }
+        else if (gameObject.name.Contains("Arrow_Right"))
+        {
+            MGManager.canHitRightArrow = state;
         }
     }
 
