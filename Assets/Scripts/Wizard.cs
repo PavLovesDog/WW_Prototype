@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Wizard : Interactable
@@ -7,11 +8,22 @@ public class Wizard : Interactable
     GameManager gm;
 
     /// <summary>
-    /// Need:
-    /// dialog with wizard
-    /// handle adding experience
-    /// handle unlocking new skills
+    /// leveling up
+    ///     gain experience
+    ///         -   gain experience in that specific magic
+    ///         
+    ///     spend experience
+    ///         - see wizard spend that specific when you have enough to level up
+    ///
     /// 
+    ///  dialog
+    ///        
+    ///     - wizard give you options which ones you can upgrade
+    ///        - upgrade 
+    ///             - buttons (wind Cloud, Rain)
+    ///             - displays progress bar (currentExp/exp needed)
+    ///        - leave
+    ///             - leaves
     /// </summary>
     
 
@@ -27,21 +39,10 @@ public class Wizard : Interactable
         
         string dialogMessage = "";
 
-        ///give choice of what to upgrade
-        
-        ///
+        TMP_Text dialogBox = objectCanvas.GetComponentInChildren<TMP_Text>();
+
+        ///get player to choose how much 
         return;
-    }
-    /// <summary>
-    /// adds the experience amount to the specified skill
-    /// </summary>
-    /// <param name="skill"></param>
-    /// <param name="experience"></param>
-    /// <returns></returns>
-    public bool AddExperienceSkill(SkillType skill, int experience)
-    {
-        gm.AddSkillExperience(skill,experience);
-        return true;
     }
 
     private void LevelUp(SkillType chosenType)
@@ -49,7 +50,6 @@ public class Wizard : Interactable
         switch (chosenType)
         {
             case SkillType.Rain:
-                
                 break;
             case SkillType.Wind:
                 break;
