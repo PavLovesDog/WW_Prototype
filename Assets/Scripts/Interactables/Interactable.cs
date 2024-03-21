@@ -33,9 +33,9 @@ public class Interactable : MonoBehaviour
     private void Update()
     {
         // player is near and can interact with the object
-        if(canInteract)
+        if (canInteract)
         {
-            if(Input.GetKeyDown(KeyCode.E)) 
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 HandleInteractions();
             }
@@ -45,7 +45,7 @@ public class Interactable : MonoBehaviour
     private void HandleInteractions()
     {
         // whats the tag of this gameobject?
-        switch(gameObject.tag)
+        switch (gameObject.tag)
         {
             case "InteractableObject":
                 Debug.Log("This is an Interactable OBJECT!");
@@ -63,14 +63,14 @@ public class Interactable : MonoBehaviour
                 Debug.Log("This is an Interactable PICKUP!");
                 // add object to inventory
                 // destroy object
-                
+
                 //Temp Demonstration
                 {
                     MeshRenderer mesh = gameObject.GetComponentInChildren<MeshRenderer>();
                     SpriteRenderer sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
                     if (mesh != null)
                         mesh.enabled = false;
-                    else if(sprite != null) 
+                    else if (sprite != null)
                         sprite.enabled = false;
 
                     TMP_Text canvasText = objectCanvas.GetComponentInChildren<TMP_Text>();
@@ -95,7 +95,10 @@ public class Interactable : MonoBehaviour
                 }
 
                 break;
-
+            case "InteractableWizard":
+                //run level up here
+                GetComponent<Wizard>().RunInteraction();
+                break;
             default:
                 // enable the text box of this item for some "flavour Text"
                 break;
@@ -103,9 +106,11 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    IEnumerator DelayedDeletion() 
-    { 
-        yield return new WaitForSeconds(3f); 
+
+
+    IEnumerator DelayedDeletion()
+    {
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }
 

@@ -98,7 +98,6 @@ public class GameManager : MonoBehaviour
     /// progress level and reset skill experience
     /// </summary>
     /// <param name="skillType">Which skill to level up</param>
-
     public void ProgressLevel(SkillType skillType)
     {
         int index = (int)skillType;
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour
         int newXpGoal = skillLevel[index] * 200 + 50;
         return newXpGoal;
     }
-    ///Initialise the lists and fill them <summary>
+    ///<summary>
     /// Initialise the lists and fill them
     /// </summary>
     /// <param name="amountOfSkills">How many skills in the game</param>
