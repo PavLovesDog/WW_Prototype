@@ -26,6 +26,7 @@ public class MiniGameManager_Farm : MonoBehaviour
     public GameObject rightArrow;
     public GameObject upArrow;
     public GameObject downArrow;
+    public ParticleSystem[] hitParticles;
     // name suffix numbers (to uniquely number each arrow spawned)
     int lnum = 0;
     int Unum = 0;
@@ -439,6 +440,7 @@ public class MiniGameManager_Farm : MonoBehaviour
             IncrementScore();
 
             //play a little particle effect to show hit
+            hitParticles[identifier - 1].Play();
 
             //Play Audio
             if (identifier == 1) // Left Arrow
