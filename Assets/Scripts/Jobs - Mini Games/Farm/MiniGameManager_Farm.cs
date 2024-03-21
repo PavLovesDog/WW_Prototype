@@ -11,6 +11,7 @@ public class MiniGameManager_Farm : MonoBehaviour
 
     [Header("References")]
     public GameManager gm;
+    public MG1_AudioManager mgAudioManager;
 
     [Header("Lanes & Spawn Points")]
     public GameObject[] lanes;
@@ -28,8 +29,13 @@ public class MiniGameManager_Farm : MonoBehaviour
     int Unum = 0;
     int Dnum = 0;
     int Rnum = 0;
+    bool leftArrowAudioFlag = true;
+    bool upArrowAudioFlag = true;
+    bool downArrowAudioFlag = true;
+    bool rightArrowAudioFlag = true;
 
     [Header("Game variables")]
+    public bool gameOver = false;
     public int hitsToWin = 30;
     public int currentHits = 0;
     [Tooltip("Speed at which arrows will scroll down the screen/move")] public float scrollSpeed;
@@ -67,8 +73,10 @@ public class MiniGameManager_Farm : MonoBehaviour
 
     private void Start()
     {
-        //get reference to the Game Manager
-        gm = FindAnyObjectByType<GameManager>();
+        //get reference to the Game Manager & audio source
+        gm = FindObjectOfType<GameManager>();
+        mgAudioManager = FindObjectOfType<MG1_AudioManager>();
+
         //Find the cloud settings for runtime manipulation
         if (globalVolume.profile.TryGet<VolumetricClouds>(out cloudsSettings))
         {
@@ -80,9 +88,12 @@ public class MiniGameManager_Farm : MonoBehaviour
 
     private void Update()
     {
-        SpawnArrows();
-        HandleInteractionAndScoring();
-        HandleIncreasingDifficulty();
+        if(!gameOver)
+        {
+            SpawnArrows();
+            HandleInteractionAndScoring();
+            HandleIncreasingDifficulty();
+        }
     }
 
     private void HandleIncreasingDifficulty()
@@ -148,7 +159,8 @@ public class MiniGameManager_Farm : MonoBehaviour
         //listen for game over event
         if(currentHits >= hitsToWin)
         {
-            //show end screen
+            gameOver = true;
+            //show end screen an scores
             MiniGameEnd();
         }
     }
@@ -299,25 +311,48 @@ public class MiniGameManager_Farm : MonoBehaviour
     }
     #endregion
     
-    
+    //Function to randomize which sound will play for each arrow
+    private void RandomizeSoundPlayed(bool flag, AudioSource source1, AudioSource source2)
+    {
+        if (flag)
+        {
+            mgAudioManager.PlayAudio(source1);
+        }
+        else
+        {
+            mgAudioManager.PlayAudio(source2);
+        }
+    }
+
     private void HandleInteractionAndScoring()
     {
         //listen for key press, each individually
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            //TESTING
+            //leftArrowAudioFlag = !leftArrowAudioFlag; // switch bool state for each tap
+            ////Play one of either selected notes attached to LEFT arrow
+            //RandomizeSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
+
             // Change colour of hit zone to visually show player button press
             SpriteRenderer hitArrowSprite = hitPoints[0].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
             if (canHitLeftArrow)
             {
+                leftArrowAudioFlag = !leftArrowAudioFlag; // switch bool state for each tap
+
                 Debug.Log("HIT the LEFT arrow");
+
                 //increment hit counter
-                currentHits++;
-                hitCounter++;
+                currentHits++; // for tracking level progression
+                hitCounter++; // for tracking difficulty change
 
                 //play a little particle effect to show hit
-                //play audio to show hit
+
+                //play audio
+                //Play one of either selected notes attached to LEFT arrow
+                RandomizeSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
 
                 //Cloud coverage
                 if(cloudsSettings.shapeFactor.value >= 0.3f) // clamp to bottom point (this is for good looking rain clouds)
@@ -331,42 +366,66 @@ public class MiniGameManager_Farm : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            //upArrowAudioFlag = !upArrowAudioFlag;
+            ////Play one of either selected notes attached to UP arrow
+            //RandomizeSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
+
             SpriteRenderer hitArrowSprite = hitPoints[1].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
+
             if (canHitUpArrow)
             {
+                upArrowAudioFlag = !upArrowAudioFlag;
                 Debug.Log("HIT the UP arrow");
                 currentHits++;
                 hitCounter++;
+                //Play one of either selected notes attached to UP arrow
+                RandomizeSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
                 cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            //downArrowAudioFlag = !downArrowAudioFlag;
+            ////Play one of either selected notes attached to DOWN arrow
+            //RandomizeSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
+
             SpriteRenderer hitArrowSprite = hitPoints[2].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
+
             if (canHitDownArrow)
             {
+                downArrowAudioFlag = !downArrowAudioFlag;
                 Debug.Log("HIT the DOWN arrow");
                 currentHits++;
                 hitCounter++;
+                //Play one of either selected notes attached to DOWN arrow
+                RandomizeSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
                 cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            //rightArrowAudioFlag = !rightArrowAudioFlag;
+            ////Play one of either selected notes attached to RIGHT arrow
+            //RandomizeSoundPlayed(rightArrowAudioFlag, mgAudioManager.AR_1, mgAudioManager.AR_2);
+
             SpriteRenderer hitArrowSprite = hitPoints[3].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
+
             if (canHitRightArrow)
             {
+                rightArrowAudioFlag = !rightArrowAudioFlag;
                 Debug.Log("HIT the RIGHT arrow");
                 currentHits++;
                 hitCounter++;
+                //Play one of either selected notes attached to RIGHT arrow
+                RandomizeSoundPlayed(rightArrowAudioFlag, mgAudioManager.AR_1, mgAudioManager.AR_2);
                 cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
         }
