@@ -464,6 +464,8 @@ public class MiniGameManager_Farm : MonoBehaviour
     {
         //probably get the xp gained from score
         int xpGained = 100;
-        gm.AddPlayerExperience(xpGained); 
+        //gm.AddPlayerExperience(xpGained); 
+        gm.AddSkillExperience(SkillType.Rain, xpGained);
+            
     }
 }

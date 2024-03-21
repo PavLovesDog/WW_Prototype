@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
         //gives player 10 xp
         if (Input.GetKeyDown(KeyCode.V))
         {
-            AddPlayerExperience(10);
+            //AddPlayerExperience(10);
         }
         //gives skill 5 xp
         else if (Input.GetKeyDown(KeyCode.B))
