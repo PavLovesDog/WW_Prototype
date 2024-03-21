@@ -46,27 +46,8 @@ public class GameManager : MonoBehaviour
     public List<float> skillNeededExperience = new List<float>();
     //List of skill levels
     public List<int> skillLevel = new List<int>();
-    float playerExperience = 0;
     private int amountOfSkills = 0; // used to track how many skills in the game
-    #region PlayerExperience
 
-    ///  <summary>
-    /// add experience to player
-    /// </summary>
-    /// <param name="experience">How much experience to add</param>
-    public void AddPlayerExperience(float experience)
-    {
-        playerExperience += experience;
-    }
-    /// <summary>
-    /// subtract experience from player
-    /// </summary>
-    /// <param name="experience">How much experience to subatract</param>
-    public void SubtractPlayerExperience(float experience)
-    {
-        playerExperience -= experience;
-    }
-    #endregion
     #region SkillExperience
     /// <summary>
     /// Add experience to specific skill
@@ -75,30 +56,17 @@ public class GameManager : MonoBehaviour
     /// <param name="experience">How much xp to add</param>
     public void AddSkillExperience(SkillType skill, float experience)
     {
-        //check that the player has enough experience left
-        if (experience <= playerExperience)
-        {
-            //converts the skill into an int to use as an index for the lists so the correct ones can be updated
-            int index = (int)skill;
-            skillExperience[index] += experience;
-            SubtractPlayerExperience(experience);
-            //checks if there is a level up
-            if (skillExperience[index] >= skillNeededExperience[index])
-            {
-                ProgressLevel(skill);
-            }
-        } else
-        {
-            print("not enough xp");
-            return;
-        }
+
+        //converts the skill into an int to use as an index for the lists so the correct ones can be updated
+        int index = (int)skill;
+        skillExperience[index] += experience;
+
     }
 
     /// <summary>
     /// progress level and reset skill experience
     /// </summary>
     /// <param name="skillType">Which skill to level up</param>
-
     public void ProgressLevel(SkillType skillType)
     {
         int index = (int)skillType;
@@ -114,10 +82,10 @@ public class GameManager : MonoBehaviour
     int GenerateNewSkillTarget(SkillType skillType)
     {
         int index = (int)skillType;
-        int newXpGoal = skillLevel[index] * 200 + 50;
+        int newXpGoal = 1000 + (1000 * (skillLevel[index] - 1));
         return newXpGoal;
     }
-    ///Initialise the lists and fill them <summary>
+    ///<summary>
     /// Initialise the lists and fill them
     /// </summary>
     /// <param name="amountOfSkills">How many skills in the game</param>
@@ -126,7 +94,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < amountOfSkills; i++)
         {
             skillExperience.Add(0);
-            skillLevel.Add(0);
+            skillLevel.Add(1);
             skillNeededExperience.Add(0);
             skillNeededExperience[i] = GenerateNewSkillTarget((SkillType)i);
         }
