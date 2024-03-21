@@ -5,10 +5,11 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement; // for transitions back to overworld
+using TMPro;
 
 public class MiniGameManager_Farm : MonoBehaviour
 {
-
     [Header("References")]
     public GameManager gm;
     public MG1_AudioManager mgAudioManager;
@@ -25,10 +26,12 @@ public class MiniGameManager_Farm : MonoBehaviour
     public GameObject rightArrow;
     public GameObject upArrow;
     public GameObject downArrow;
+    // name suffix numbers (to uniquely number each arrow spawned)
     int lnum = 0;
     int Unum = 0;
     int Dnum = 0;
     int Rnum = 0;
+    // flags to control which note will be played on each arrow
     bool leftArrowAudioFlag = true;
     bool upArrowAudioFlag = true;
     bool downArrowAudioFlag = true;
@@ -48,6 +51,17 @@ public class MiniGameManager_Farm : MonoBehaviour
     public bool canHitUpArrow = false;
     public bool canHitDownArrow = false;
     public bool canHitRightArrow = false;
+
+    [Header("Scoring")]
+    public int currentStreak;
+    public int currentScore;
+    private int scorePerHit = 10;
+    public int totalScore;
+    public int scoreMultiplier = 1;
+    //UI stuffs
+    public TMP_Text scoreText;
+    public TMP_Text streakText;
+    public TMP_Text multiplierText;
 
     [Header("Difficulty Management")]
     public float difficultySegments = 0; // set in inspector (currently at 6)
@@ -84,18 +98,63 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
     }
     
-
-
     private void Update()
     {
         if(!gameOver)
         {
             SpawnArrows();
-            HandleInteractionAndScoring();
             HandleIncreasingDifficulty();
+            HandleScoringMultiplier();
+            HandleScoreUI();
         }
+
+        HandlePlayerInteraction();
     }
 
+    #region Scoring & Difficulty Functions
+    private void HandleScoringMultiplier()
+    {
+        //reward greater streaks of "hits"
+        if (currentStreak >= 5)
+        {
+            scoreMultiplier = 2;
+        }
+        else if (currentStreak >= 10)
+        {
+            scoreMultiplier = 4;
+        }
+        else if (currentStreak >= 15)
+        {
+            scoreMultiplier = 8;
+        }
+        else if (currentStreak >= 25)
+        {
+            scoreMultiplier = 16;
+        }
+        else
+        {
+            //default multiplier
+            scoreMultiplier = 1;
+        }
+
+        //*score is added when player hits correct notes 
+    }
+    private void DeductScore(int amount)
+    {
+        if (currentScore > 0)
+            currentScore -= amount;
+    }
+    private void IncrementScore()
+    {
+        // increment score based on score per hit and scor multiplier
+        currentScore += scorePerHit * scoreMultiplier;
+    }
+    private void HandleScoreUI()
+    {
+        scoreText.text = "Score: " + currentScore.ToString(); // Show current score
+        multiplierText.text = "x" + scoreMultiplier.ToString();
+        streakText.text = currentStreak.ToString();
+    }
     private void HandleIncreasingDifficulty()
     {
         // based on total amount of "hits"
@@ -165,7 +224,9 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
     }
 
-    #region Arrow SPawning Logic
+    #endregion
+
+    #region Arrow Spawning Logic
     private void SpawnArrows()
     {
         //set a number of arrows to spawn
@@ -310,7 +371,8 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
     }
     #endregion
-    
+
+    #region Player Interaction Logic
     //Function to randomize which sound will play for each arrow
     private void RandomizeSoundPlayed(bool flag, AudioSource source1, AudioSource source2)
     {
@@ -324,123 +386,102 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
     }
 
-    private void HandleInteractionAndScoring()
+    private void HandlePlayerInteraction()
     {
         //listen for key press, each individually
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            //TESTING
-            //leftArrowAudioFlag = !leftArrowAudioFlag; // switch bool state for each tap
-            ////Play one of either selected notes attached to LEFT arrow
-            //RandomizeSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
-
             // Change colour of hit zone to visually show player button press
             SpriteRenderer hitArrowSprite = hitPoints[0].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-            if (canHitLeftArrow)
-            {
-                leftArrowAudioFlag = !leftArrowAudioFlag; // switch bool state for each tap
-
-                Debug.Log("HIT the LEFT arrow");
-
-                //increment hit counter
-                currentHits++; // for tracking level progression
-                hitCounter++; // for tracking difficulty change
-
-                //play a little particle effect to show hit
-
-                //play audio
-                //Play one of either selected notes attached to LEFT arrow
-                RandomizeSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
-
-                //Cloud coverage
-                if(cloudsSettings.shapeFactor.value >= 0.3f) // clamp to bottom point (this is for good looking rain clouds)
-                    cloudsSettings.shapeFactor.value -= cloudCoverageChange;
-
-                //cloud density
-                cloudsSettings.densityMultiplier.value += densityChange;
-            }
+            if(!gameOver)
+                HandleArrowHit(1, canHitLeftArrow);
         }
-
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            //upArrowAudioFlag = !upArrowAudioFlag;
-            ////Play one of either selected notes attached to UP arrow
-            //RandomizeSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
-
             SpriteRenderer hitArrowSprite = hitPoints[1].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-
-            if (canHitUpArrow)
-            {
-                upArrowAudioFlag = !upArrowAudioFlag;
-                Debug.Log("HIT the UP arrow");
-                currentHits++;
-                hitCounter++;
-                //Play one of either selected notes attached to UP arrow
-                RandomizeSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
-                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
-            }
+            if (!gameOver)
+                HandleArrowHit(2, canHitUpArrow);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            //downArrowAudioFlag = !downArrowAudioFlag;
-            ////Play one of either selected notes attached to DOWN arrow
-            //RandomizeSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
-
             SpriteRenderer hitArrowSprite = hitPoints[2].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
-
-            if (canHitDownArrow)
-            {
-                downArrowAudioFlag = !downArrowAudioFlag;
-                Debug.Log("HIT the DOWN arrow");
-                currentHits++;
-                hitCounter++;
-                //Play one of either selected notes attached to DOWN arrow
-                RandomizeSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
-                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
-            }
+            if (!gameOver)
+                HandleArrowHit(3, canHitDownArrow);
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            //rightArrowAudioFlag = !rightArrowAudioFlag;
-            ////Play one of either selected notes attached to RIGHT arrow
-            //RandomizeSoundPlayed(rightArrowAudioFlag, mgAudioManager.AR_1, mgAudioManager.AR_2);
-
+            //Visualise key press
             SpriteRenderer hitArrowSprite = hitPoints[3].GetComponentInChildren<SpriteRenderer>();
             StartCoroutine(ChangeSpriteAplha(hitArrowSprite));
 
+            if (!gameOver)
+                HandleArrowHit(4, canHitRightArrow);
+        }
+    }
 
-            if (canHitRightArrow)
+    private void HandleArrowHit(int identifier, bool arrowHitFlag)
+    {
+        if (arrowHitFlag)
+        {
+            //increment hit counter
+            currentHits++; // for tracking level progression
+            hitCounter++; // for tracking difficulty change
+            currentStreak++;
+            IncrementScore();
+
+            //play a little particle effect to show hit
+
+            //Play Audio
+            if (identifier == 1) // Left Arrow
+            {
+                leftArrowAudioFlag = !leftArrowAudioFlag;
+                RandomizeSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
+            }
+            if (identifier == 2) // Up Arrow
+            {
+                upArrowAudioFlag = !upArrowAudioFlag;
+                RandomizeSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
+            }
+            if (identifier == 3) // Down Arrow
+            {
+                downArrowAudioFlag = !downArrowAudioFlag;
+                RandomizeSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
+            }
+            if (identifier == 4) // Right arrow
             {
                 rightArrowAudioFlag = !rightArrowAudioFlag;
-                Debug.Log("HIT the RIGHT arrow");
-                currentHits++;
-                hitCounter++;
-                //Play one of either selected notes attached to RIGHT arrow
                 RandomizeSoundPlayed(rightArrowAudioFlag, mgAudioManager.AR_1, mgAudioManager.AR_2);
-                cloudsSettings.shapeFactor.value -= cloudCoverageChange;
             }
+
+            //make cloud visual changes
+            TransitionCloudCoverage();
+            TransitionCloudDensity();
         }
-        ////if the corresponding arrow bool is enabled, register a hit
+        else // missed "hit"
+        {
+            currentStreak = 0;
+            DeductScore(5);
+        }
     }
 
     private void TransitionCloudCoverage()
     {
-        
-        //clouds.densityMultiplier
+        if (cloudsSettings.shapeFactor.value >= 0.3f) // clamp to bottom point (this is for good looking rain clouds)
+            cloudsSettings.shapeFactor.value -= cloudCoverageChange;
     }
 
-    private void TransitionClouddensity()
+    private void TransitionCloudDensity()
     {
-
+        cloudsSettings.densityMultiplier.value += densityChange;
     }
 
     //buddy coroutine for Input press
@@ -457,7 +498,7 @@ public class MiniGameManager_Farm : MonoBehaviour
         //make colour dull
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, dullAlpha);
     }
-    
+    #endregion
 
     //when the mini game ends (only a temp title)
     void MiniGameEnd()

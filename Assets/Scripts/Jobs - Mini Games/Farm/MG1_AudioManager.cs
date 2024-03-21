@@ -14,17 +14,6 @@ public class MG1_AudioManager : MonoBehaviour
     public AudioSource AR_1;
     public AudioSource AR_2;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public void PlayAudio(AudioSource source)
     {
         source.PlayOneShot(source.clip);
