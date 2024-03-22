@@ -70,9 +70,13 @@ public class GameManager : MonoBehaviour
     public void ProgressLevel(SkillType skillType)
     {
         int index = (int)skillType;
-        skillLevel[index] += 1;
-        skillExperience[index] -= skillNeededExperience[index];
-        skillNeededExperience[index] = GenerateNewSkillTarget(skillType);
+        //check that there is enough experience available
+        if (skillExperience[index] >= skillNeededExperience[index])
+        {
+            skillLevel[index] += 1;
+            skillExperience[index] -= skillNeededExperience[index];
+            skillNeededExperience[index] = GenerateNewSkillTarget(skillType);
+        }
     }
     /// <summary>
     /// generate new skill experience goal
@@ -99,6 +103,14 @@ public class GameManager : MonoBehaviour
             skillNeededExperience[i] = GenerateNewSkillTarget((SkillType)i);
         }
     }
+    public string GetSkillProgressAmount(SkillType skillType)
+    {
+        return skillExperience[(int)skillType].ToString() + "/" + skillNeededExperience[(int)skillType].ToString();
+    }
+    public float GetSkillProgressPerc(SkillType skillType)
+    {
+        return skillExperience[(int)skillType] / skillNeededExperience[(int)skillType];
+    }
     #endregion
     // Start is called before the first frame update
     void Awake()
@@ -122,8 +134,11 @@ public class GameManager : MonoBehaviour
         //makes sure this persists throughout the game
         DontDestroyOnLoad(this.gameObject);
     }
-
-
+    //called when leveling up
+    public void LevelUpMagic(int index)
+    {
+        ProgressLevel((SkillType)index);
+    }
     // Update is called once per frame
     void Update()
     {
