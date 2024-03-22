@@ -14,6 +14,7 @@ TagManager:
   - Arrow_Left
   - Arrow_Right
   - GameManager
+  - InteractableWizard
   layers:
   - Default
   - TransparentFX
