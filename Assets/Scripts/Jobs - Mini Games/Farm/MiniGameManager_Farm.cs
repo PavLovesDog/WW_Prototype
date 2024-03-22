@@ -54,12 +54,22 @@ public class MiniGameManager_Farm : MonoBehaviour
     public bool canHitRightArrow = false;
 
     [Header("Scoring")]
-    public int currentStreak;
-    public int currentScore;
+    public int currentStreak = 0;
+    public int currentScore = 0;
     private int scorePerHit = 10;
-    public int totalScore;
+    private int shoddyWorkScore = 0;
+    public int totalScore =0;
     public int scoreMultiplier = 1;
-    //UI stuffs
+    public int xpGained = 0;
+
+    [Header("UI")]
+    public GameObject gameOverScreen;
+    public TMP_Text go_ScoreText;
+    public TMP_Text go_ShoddyWorkText;
+    public TMP_Text go_TotalScoreText;
+    public TMP_Text go_CoinEarnedText;
+    public TMP_Text go_XPEarnedText;
+    //on screen variables
     public TMP_Text scoreText;
     public TMP_Text streakText;
     public TMP_Text multiplierText;
@@ -85,6 +95,10 @@ public class MiniGameManager_Farm : MonoBehaviour
     [Tooltip("Control amount of clouds in sky, smaller values = more clouds (0-1))")] 
     public float currentCloudCoverage = 1;
     public float cloudCoverageChange = 0.05f;
+
+    [Header("Light Varibales")]
+    public Light sunLight;
+    public float temperatureChange = 130f;
 
     private void Start()
     {
@@ -152,9 +166,17 @@ public class MiniGameManager_Farm : MonoBehaviour
     }
     private void HandleScoreUI()
     {
+        // On screen UI (Visible While Playing)
         scoreText.text = "Score: " + currentScore.ToString(); // Show current score
         multiplierText.text = "x" + scoreMultiplier.ToString();
         streakText.text = currentStreak.ToString();
+
+        //End Screen UI
+        go_ScoreText.text = "Score: " + currentScore.ToString();
+        go_ShoddyWorkText.text = "Shoddy Work: -" + shoddyWorkScore.ToString();
+        go_TotalScoreText.text = "Total: " +  totalScore.ToString();
+        go_CoinEarnedText.text = "Coin Earned: " + (Mathf.Floor(totalScore / 10)).ToString();
+        go_XPEarnedText.text = "EX Earned: " + xpGained.ToString();
     }
     private void HandleIncreasingDifficulty()
     {
@@ -284,8 +306,6 @@ public class MiniGameManager_Farm : MonoBehaviour
                 currentArrowsInPlay++;
             }
                 //arrow now spawned, it will handle its own movement
-
-        
         }
 
         CheckArrowsForRemoval();
@@ -465,13 +485,15 @@ public class MiniGameManager_Farm : MonoBehaviour
             }
 
             //make cloud visual changes
-            TransitionCloudCoverage();
-            TransitionCloudDensity();
+            TransitionCloudCoverage(); // Increase Clouds
+            TransitionCloudDensity(); // Increase density of clouds
+            ChangeTemperature(temperatureChange); // change the light to reflect a rainy day
         }
         else // missed "hit"
         {
             currentStreak = 0;
-            DeductScore(5);
+            shoddyWorkScore += 4; // increase the total to deduct form score at end
+            //DeductScore(5);
         }
     }
 
@@ -484,6 +506,16 @@ public class MiniGameManager_Farm : MonoBehaviour
     private void TransitionCloudDensity()
     {
         cloudsSettings.densityMultiplier.value += densityChange;
+    }
+
+    private void ChangeTemperature(float change)
+    {
+        if (sunLight != null)
+        {
+            sunLight.colorTemperature += change;
+            // Clamp the temperature to HDRP's allowed range if necessary
+            sunLight.colorTemperature = Mathf.Clamp(sunLight.colorTemperature, 6000, 20000);
+        }
     }
 
     //buddy coroutine for Input press
@@ -505,10 +537,31 @@ public class MiniGameManager_Farm : MonoBehaviour
     //when the mini game ends (only a temp title)
     void MiniGameEnd()
     {
+        //Initiate final visual changes
+
+        //set the end screen active
+        StartCoroutine(DelayEndScreen());
+
+        totalScore = currentScore - shoddyWorkScore;
         //probably get the xp gained from score
-        int xpGained = 100;
-        //gm.AddPlayerExperience(xpGained); 
+        //Calculate xp gained based on total score
+        xpGained = totalScore / 3 /* * satisfactionMultiplier*/;
+
+        //Add xp to proper magic skill abd amount
         gm.AddSkillExperience(SkillType.Rain, xpGained);
             
+    }
+
+    IEnumerator DelayEndScreen()
+    {
+        yield return new WaitForSeconds(5);
+        gameOverScreen.SetActive(true);
+    }
+
+    //Function for UI button
+    public void OnEndButtonPress()
+    {
+        // load the overworld scene
+        SceneManager.LoadScene(0);
     }
 }
