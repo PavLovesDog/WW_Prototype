@@ -395,7 +395,7 @@ public class MiniGameManager_Farm : MonoBehaviour
 
     #region Player Interaction Logic
     //Function to randomize which sound will play for each arrow
-    private void RandomizeSoundPlayed(bool flag, AudioSource source1, AudioSource source2)
+    private void RandomizeHitSoundPlayed(bool flag, AudioSource source1, AudioSource source2)
     {
         if (flag)
         {
@@ -404,6 +404,31 @@ public class MiniGameManager_Farm : MonoBehaviour
         else
         {
             mgAudioManager.PlayAudio(source2);
+        }
+    }
+
+    private void RandomizeMissSoundPlayed()
+    {
+        //generate a rand number
+        int rand = Random.Range(0, 5);
+        //use random nuimbner to determine which note will be played
+        switch(rand) 
+        { 
+            case 0:
+                mgAudioManager.PlayAudio(mgAudioManager.M1);
+                break;
+            case 1:
+                mgAudioManager.PlayAudio(mgAudioManager.M2);
+                break;
+            case 2:
+                mgAudioManager.PlayAudio(mgAudioManager.M3);
+                break;
+            case 3:
+                mgAudioManager.PlayAudio(mgAudioManager.M4);
+                break;
+            case 4:
+                mgAudioManager.PlayAudio(mgAudioManager.M5);
+                break;
         }
     }
 
@@ -466,22 +491,22 @@ public class MiniGameManager_Farm : MonoBehaviour
             if (identifier == 1) // Left Arrow
             {
                 leftArrowAudioFlag = !leftArrowAudioFlag;
-                RandomizeSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
+                RandomizeHitSoundPlayed(leftArrowAudioFlag, mgAudioManager.AL_1, mgAudioManager.AL_2);
             }
             if (identifier == 2) // Up Arrow
             {
                 upArrowAudioFlag = !upArrowAudioFlag;
-                RandomizeSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
+                RandomizeHitSoundPlayed(upArrowAudioFlag, mgAudioManager.AU_1, mgAudioManager.AU_2);
             }
             if (identifier == 3) // Down Arrow
             {
                 downArrowAudioFlag = !downArrowAudioFlag;
-                RandomizeSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
+                RandomizeHitSoundPlayed(downArrowAudioFlag, mgAudioManager.AD_1, mgAudioManager.AD_2);
             }
             if (identifier == 4) // Right arrow
             {
                 rightArrowAudioFlag = !rightArrowAudioFlag;
-                RandomizeSoundPlayed(rightArrowAudioFlag, mgAudioManager.AR_1, mgAudioManager.AR_2);
+                RandomizeHitSoundPlayed(rightArrowAudioFlag, mgAudioManager.AR_1, mgAudioManager.AR_2);
             }
 
             //make cloud visual changes
@@ -491,9 +516,12 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
         else // missed "hit"
         {
+            //zero streak and add to "shoddy work" score
             currentStreak = 0;
             shoddyWorkScore += 4; // increase the total to deduct form score at end
-            //DeductScore(5);
+
+            // Play random wrong hit note
+            RandomizeMissSoundPlayed();
         }
     }
 
