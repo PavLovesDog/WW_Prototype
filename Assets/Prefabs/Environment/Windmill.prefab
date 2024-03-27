@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2646157513794500034
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8747264537902136033, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.29
+      objectReference: {fileID: 0}
+    - target: {fileID: -8747264537902136033, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.98
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.71
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.046703294
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9989088
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -174.646
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4958538023392519991, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_Name
+      value: Blade
+      objectReference: {fileID: 0}
+    - target: {fileID: -4072548755889853709, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.9618096
+      objectReference: {fileID: 0}
+    - target: {fileID: -4072548755889853709, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.3623247
+      objectReference: {fileID: 0}
+    - target: {fileID: 307816159369647087, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5366938
+      objectReference: {fileID: 0}
+    - target: {fileID: 307816159369647087, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.7922935
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_Name
+      value: Windmill
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468990364418983669, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.58188415
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468990364418983669, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.3623247
+      objectReference: {fileID: 0}
+    - target: {fileID: 3611880080676546563, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5366936
+      objectReference: {fileID: 0}
+    - target: {fileID: 3611880080676546563, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.7922935
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566793035046937665, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.46382475
+      objectReference: {fileID: 0}
+    - target: {fileID: 5566793035046937665, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.9738283
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -4958538023392519991, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2049943151194698664}
+  m_SourcePrefab: {fileID: 100100000, guid: ee9e5369e843e1c489881ca8d3478076, type: 3}
+--- !u!1 &2276202156968668427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4958538023392519991, guid: ee9e5369e843e1c489881ca8d3478076,
+    type: 3}
+  m_PrefabInstance: {fileID: 2646157513794500034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2049943151194698664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2276202156968668427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f59e7d0b16ad4d48b8c9bb21f8c525d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAxis: {x: 0, y: 0, z: 20}
+  speed: 1
+  targetAngle: 6000
