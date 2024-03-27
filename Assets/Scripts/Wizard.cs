@@ -55,6 +55,7 @@ public class Wizard : Interactable
         //set initial state
         EnableInteractable(false);
         gm = FindAnyObjectByType<GameManager>();
+        dialogBox.SetActive(false);
     }
     
     public void RunInteraction()
@@ -97,7 +98,10 @@ public class Wizard : Interactable
     //called when leveling up
     public void LevelUpMagic(int index)
     {
-        gm.ProgressLevel((SkillType)index);
+        bool lvlUp = gm.ProgressLevel((SkillType)index);
+        if (!lvlUp) {
+            dialog.text = "Sorry, but it seems you don't have enough experience for that one";
+        }
         UpdateDialogBox();
     }
     public void LeaveWizardDialog()

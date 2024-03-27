@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     /// progress level and reset skill experience
     /// </summary>
     /// <param name="skillType">Which skill to level up</param>
-    public void ProgressLevel(SkillType skillType)
+    public bool ProgressLevel(SkillType skillType)
     {
         int index = (int)skillType;
         //check that there is enough experience available
@@ -76,6 +76,10 @@ public class GameManager : MonoBehaviour
             skillLevel[index] += 1;
             skillExperience[index] -= skillNeededExperience[index];
             skillNeededExperience[index] = GenerateNewSkillTarget(skillType);
+            return true;
+        } else
+        {
+            return false;
         }
     }
     /// <summary>
