@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2686.76, g: 2883.1057, b: 3458.977, a: 1}
-
+  m_IndirectSpecularColor: {r: 2688.8088, g: 2884.6252, b: 3459.6333, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -706,74 +705,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 490743251}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &533228570
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.66829
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.46711868
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -34.932713
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: d0f410d3ad26a8142ade2c64fb91bba0,
-        type: 3}
-      propertyPath: m_Name
-      value: Windmill_2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0f410d3ad26a8142ade2c64fb91bba0, type: 3}
 --- !u!1001 &672578387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,6 +974,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 868284018}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &880939332
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.42
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.87130165
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -41.29457
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee9e5369e843e1c489881ca8d3478076,
+        type: 3}
+      propertyPath: m_Name
+      value: Windmill_3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee9e5369e843e1c489881ca8d3478076, type: 3}
 --- !u!1 &928478832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,7 +1323,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
-
 --- !u!1001 &1046373694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3916,9 +3914,9 @@ SceneRoots:
   - {fileID: 1022747421}
   - {fileID: 391181046}
   - {fileID: 2133035188}
-  - {fileID: 533228570}
   - {fileID: 1880878302}
   - {fileID: 50894494}
   - {fileID: 1046373694}
   - {fileID: 2002963871}
   - {fileID: 1139626754}
+  - {fileID: 880939332}
