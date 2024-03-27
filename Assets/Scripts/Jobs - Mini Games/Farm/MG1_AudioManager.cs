@@ -14,6 +14,13 @@ public class MG1_AudioManager : MonoBehaviour
     public AudioSource AR_1;
     public AudioSource AR_2;
 
+    [Header("Miss Sound Source")]
+    public AudioSource M1;
+    public AudioSource M2;
+    public AudioSource M3;
+    public AudioSource M4;
+    public AudioSource M5;
+
     public void PlayAudio(AudioSource source)
     {
         source.PlayOneShot(source.clip);
