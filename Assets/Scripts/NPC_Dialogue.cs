@@ -7,7 +7,7 @@ using static UnityEngine.InputManagerEntry;
 using System;
 using UnityEngine.SceneManagement;
 
-public class NPC_Dialogue : MonoBehaviour
+public class NPC_Dialogue : Interactable
 {
     /// <summary>
     /// Script to control; 
@@ -26,7 +26,7 @@ public class NPC_Dialogue : MonoBehaviour
 
     private GameObject dialogueCanvasObject;
     public Canvas dialogueCanvas;
-    public Interactable interactable; // the script of the interactable object SET IN INSPECTOR
+    //public Interactable interactable; // the script of the interactable object SET IN INSPECTOR
 
     private TMP_Text npcText;
     private Image npcSprite;
@@ -47,6 +47,16 @@ public class NPC_Dialogue : MonoBehaviour
             dialogueCanvas.enabled = false;
         }
 
+
+        if (objectCanvas == null)
+        {
+            //Find canvas object
+            objectCanvas = GetComponentInChildren<Canvas>();
+        }
+
+        //set interactable state
+        EnableInteractable(false);
+
         //set initial states
         InitializeUIElements();
 
@@ -63,8 +73,6 @@ public class NPC_Dialogue : MonoBehaviour
         acceptBtn = FindComponentInChildrenWithTag<Button>(dialogueCanvas.gameObject, "AcceptBtn");
         acceptBtnText = acceptBtn.GetComponentInChildren<TMP_Text>();
         acceptBtnText.text = buttonDialogue[0];
-        //Set up each buttons OnClick() event
-        //  - tie it to the specific script of the current NPC
 
         refuseBtn = FindComponentInChildrenWithTag<Button>(dialogueCanvas.gameObject, "RefuseBtn");
         refuseBtnText = refuseBtn.GetComponentInChildren<TMP_Text>();
@@ -103,24 +111,44 @@ public class NPC_Dialogue : MonoBehaviour
     {
         //diable the dialogue canvas
         dialogueCanvas.enabled = false;
-        interactable.initiateDialogue = false;
+        initiateDialogue = false;
     }
 
     #endregion
 
     private void Update()
     {
-       if(interactable.initiateDialogue)
+       if(initiateDialogue)
        {
-            interactable.initiateDialogue = false;
+            initiateDialogue = false;
             InitiateDialogue();
        }
+
+        // player is near and can interact with the object
+        if (canInteract)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                HandleInteractions();
+            }
+        }
+
     }
 
     private void InitiateDialogue()
     {
         //make the dialogue box visible
         dialogueCanvas.enabled = true;
+
+        //link buttons of NPC to the canvas
+        //Set up each buttons OnClick() event
+        //  - tie it to the specific script of the current NPC
+        acceptBtn.onClick.AddListener(OnAcceptButtonPress);
+        refuseBtn.onClick.AddListener(OnRefuseButtonPress);
+        continueBtn.onClick.AddListener(OnContinueButtonPress);
+
+        
+
 
         StartDialogue();
     }

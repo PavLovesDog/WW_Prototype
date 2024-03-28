@@ -35,7 +35,10 @@ public class PlayerStateMananger : MonoBehaviour
     {
         currentState?.OnStateUpdate();
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newState">State which the player is transitioning to</param>
     public void TransitionTo(PlayerController newState)
     {
         currentState?.OnStateExit();

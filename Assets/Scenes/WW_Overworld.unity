@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2696.8655, g: 2898.7346, b: 3479.192, a: 1}
+  m_IndirectSpecularColor: {r: 2695.348, g: 2896.1682, b: 3475.5317, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -546,18 +546,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8556300831596977175}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &67426030 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 8556300831596977175}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67426029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ed8ad09f67e4b4fb2f561609671292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &67426034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545234d1f311b014f8ff00c168515b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canInteract: 0
+  objectCanvas: {fileID: 0}
+  initiateDialogue: 0
   NPCLines:
   - '''Ello! You''se a Weather Worker ain''t ya?'
   - Could ya make it rain on me farm so is that crop grows, ey?
@@ -579,7 +570,6 @@ MonoBehaviour:
   - Continue
   textSpeed: 0.03
   dialogueCanvas: {fileID: 0}
-  interactable: {fileID: 67426030}
 --- !u!1001 &86590224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5012,9 +5002,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 67426034}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NPC_Dialogue, Assembly-CSharp
-        m_MethodName: OnAcceptButtonPress
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8701,9 +8691,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 67426034}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NPC_Dialogue, Assembly-CSharp
-        m_MethodName: OnRefuseButtonPress
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11679,9 +11669,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 67426034}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NPC_Dialogue, Assembly-CSharp
-        m_MethodName: OnContinueButtonPress
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14074,6 +14064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+        type: 3}
       propertyPath: NPC_Dialogue
       value: 
       objectReference: {fileID: 67426034}
@@ -14082,7 +14077,8 @@ PrefabInstance:
       propertyPath: objectCanvas
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

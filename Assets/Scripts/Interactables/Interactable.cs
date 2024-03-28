@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
     public bool canInteract = false;
     public Canvas objectCanvas;
 
-    public NPC_Dialogue NPC_Dialogue;
+    //public NPC_Dialogue NPC_Dialogue;
     public bool initiateDialogue = false;
 
     private void Awake()
@@ -45,7 +45,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private void HandleInteractions()
+    public void HandleInteractions()
     {
         // whats the tag of this gameobject?
         switch (gameObject.tag)
