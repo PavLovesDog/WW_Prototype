@@ -34,6 +34,11 @@ public class P_InteractingState : PlayerController
 
         //Listen for state change
         //  this will be from the ending of certain actions or dialoges
+        if(true/*player as clicked the "leave" button in dialogue*/)
+        {
+            //default to idle state as other states can be reached from here
+            //player.TransitionTo(new P_IdleState(player));
+        }
     }
 
 }

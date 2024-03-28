@@ -9,6 +9,9 @@ public class Interactable : MonoBehaviour
     public bool canInteract = false;
     public Canvas objectCanvas;
 
+    public NPC_Dialogue NPC_Dialogue;
+    public bool initiateDialogue = false;
+
     private void Awake()
     {
         if (objectCanvas == null)
@@ -84,6 +87,7 @@ public class Interactable : MonoBehaviour
             case "InteractableNPC":
                 Debug.Log("This is an Interactable NPC!");
                 // enable text box of this specific NPC to hear dialogue
+                initiateDialogue = true;
 
                 // Temp demonstration
                 {

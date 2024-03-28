@@ -39,9 +39,15 @@ public class P_IdleState : PlayerController
         //Listen for state change
         float xAxisInput = Input.GetAxis("Horizontal");
         float zAxisInput = Input.GetAxis("Vertical");
-        if (xAxisInput != 0 || zAxisInput != 0)
+        if (xAxisInput != 0 || zAxisInput != 0) // LOCOMOTION state
         {
             player.TransitionTo(new P_LocomotionState(player));
+        }
+
+        if(true/*the player is interacting with an NPC*/) // INTERACTING state
+        {
+            //uncomment soonish
+            //player.TransitionTo(new P_InteractingState(player));
         }
     }
 

@@ -15,6 +15,12 @@ TagManager:
   - Arrow_Right
   - GameManager
   - InteractableWizard
+  - DialogueCanvas
+  - AcceptBtn
+  - RefuseBtn
+  - ContinueBtn
+  - NPC_DialogueSprite
+  - NPC_DialogueText
   layers:
   - Default
   - TransparentFX

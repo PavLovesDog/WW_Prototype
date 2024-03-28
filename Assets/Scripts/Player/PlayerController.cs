@@ -12,7 +12,7 @@ public abstract class PlayerController : MonoBehaviour
     [Header("Locomotion variables")]
     public float xAxisInput = Input.GetAxis("Horizontal");
     public float zAxisInput = Input.GetAxis("Vertical");
-    public float speed = 10f;
+    public float speed = 5f;
 
     [Header("Interaction variables")]
     public float sphereCastRadius = 2.5f;
