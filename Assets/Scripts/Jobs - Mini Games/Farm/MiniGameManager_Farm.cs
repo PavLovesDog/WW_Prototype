@@ -205,7 +205,7 @@ public class MiniGameManager_Farm : MonoBehaviour
             spawnDelayMax = Mathf.Max(1f, spawnDelayMax + maxSpawnDelayChange);
 
             // Adjust the scroll speed, clamping within the range
-            scrollSpeed = Mathf.Clamp(scrollSpeed + scrollSpeedChange, 1.5f, 3f);
+            scrollSpeed = Mathf.Clamp(scrollSpeed + scrollSpeedChange, 1f, 3f);
 
             // Adjust the number of arrows in play, clamping within the range
             totalArrowsInPlay = (int)Mathf.Clamp(totalArrowsInPlay + arrowsInPlayChange, 10, 30);
