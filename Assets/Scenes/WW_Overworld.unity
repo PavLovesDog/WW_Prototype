@@ -561,15 +561,26 @@ MonoBehaviour:
   canInteract: 0
   objectCanvas: {fileID: 0}
   initiateDialogue: 0
+  NPCType: 0
+  startJob: 0
+  jobSceneName: WW_Job_Farming
   NPCLines:
   - '''Ello! You''se a Weather Worker ain''t ya?'
   - Could ya make it rain on me farm so is that crop grows, ey?
+  - You can? That's the best news I 'eard all day. I can pay ya nicely too!
+  - What's that? you don't want to? Well good riddance to ya.
+  - ...Well? could ya make it rain on me farm so is that crop grows, ey?
   buttonDialogue:
-  - Sure thing
+  - Yeah
   - No, sorry
   - Continue
-  textSpeed: 0.03
-  dialogueCanvas: {fileID: 0}
+  textSpeed: 0.02
+--- !u!1 &71636959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7410421239837312837, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 944414664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &86590224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5135,14 +5146,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable NPC 2D (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 595966476}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7410421239837312837, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 944414669}
   m_SourcePrefab: {fileID: 100100000, guid: 4d7e796b357c353468cba66a5fa7d6a0, type: 3}
 --- !u!4 &944414665 stripped
 Transform:
@@ -5150,6 +5171,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 944414664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &944414669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71636959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545234d1f311b014f8ff00c168515b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canInteract: 0
+  objectCanvas: {fileID: 0}
+  initiateDialogue: 0
+  NPCType: 1
+  startJob: 0
+  jobSceneName: 
+  NPCLines:
+  - I've been in this town for my enture life.
+  - '-'
+  - '-'
+  - '-'
+  - '-'
+  - I wouldn't know what I'd do if I had to leave...
+  - What's that?
+  - You want me to leave?
+  buttonDialogue:
+  - Accept
+  - Refuse
+  - Continue
+  textSpeed: 0.02
 --- !u!1001 &962004725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5584,7 +5637,7 @@ Canvas:
   m_GameObject: {fileID: 1022747417}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1823688466}
   m_PlaneDistance: 2
   m_PixelPerfect: 1
@@ -11217,15 +11270,15 @@ Canvas:
   m_GameObject: {fileID: 1929634725}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1823688466}
   m_PlaneDistance: 5
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -11885,7 +11938,7 @@ GameObject:
   - component: {fileID: 2041309538}
   m_Layer: 5
   m_Name: LeaveBtn (1)
-  m_TagString: Untagged
+  m_TagString: LeaveBtn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
