@@ -21,6 +21,7 @@ TagManager:
   - ContinueBtn
   - NPC_DialogueSprite
   - NPC_DialogueText
+  - LeaveBtn
   layers:
   - Default
   - TransparentFX
