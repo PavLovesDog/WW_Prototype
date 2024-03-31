@@ -130,21 +130,21 @@ public class MiniGameManager_Farm : MonoBehaviour
     private void HandleScoringMultiplier()
     {
         //reward greater streaks of "hits"
-        if (currentStreak >= 5)
+        if (currentStreak >= 25)
         {
-            scoreMultiplier = 2;
-        }
-        else if (currentStreak >= 10)
-        {
-            scoreMultiplier = 4;
+            scoreMultiplier = 16;
         }
         else if (currentStreak >= 15)
         {
             scoreMultiplier = 8;
         }
-        else if (currentStreak >= 25)
+        else if (currentStreak >= 10)
         {
-            scoreMultiplier = 16;
+            scoreMultiplier = 4;
+        }
+        else if (currentStreak >= 5)
+        {
+            scoreMultiplier = 2;
         }
         else
         {
