@@ -287,7 +287,8 @@ public class NPC_Dialogue : Interactable
         }
         else
         {
-            StopCoroutine(dialogueTypeCoroutine);
+            if(dialogueTypeCoroutine != null)
+                StopCoroutine(dialogueTypeCoroutine);
             dialogueTypeCoroutine = StartCoroutine(TypeLine(index));
         }
     }
