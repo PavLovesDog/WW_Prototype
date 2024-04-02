@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5092.688, g: 5675.1587, b: 6412.782, a: 1}
+  m_IndirectSpecularColor: {r: 5092.64, g: 5675.1196, b: 6413.1807, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 24248239}
   - component: {fileID: 24248238}
   m_Layer: 0
-  m_Name: Money Earned Text
+  m_Name: go_Money Earned Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,7 +875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 98.000084}
+  m_AnchoredPosition: {x: 0.00012207031, y: 98.00009}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &130117337
@@ -5288,7 +5288,7 @@ GameObject:
   - component: {fileID: 752408337}
   - component: {fileID: 752408336}
   m_Layer: 0
-  m_Name: Total Score Text
+  m_Name: go_Total Score Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6211,7 +6211,7 @@ GameObject:
   - component: {fileID: 963703114}
   - component: {fileID: 963703113}
   m_Layer: 0
-  m_Name: Shoddy Work Text
+  m_Name: go_Shoddy Work Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8870,7 +8870,7 @@ GameObject:
   - component: {fileID: 1447014392}
   - component: {fileID: 1447014391}
   m_Layer: 0
-  m_Name: Score Text
+  m_Name: go_Score Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9825,6 +9825,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617872700}
   m_CullTransparentMesh: 1
+--- !u!1 &1621179213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621179215}
+  - component: {fileID: 1621179214}
+  m_Layer: 0
+  m_Name: Weather Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1621179214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621179213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df9603e858cf544c854ddb49cf418a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalVolume: {fileID: 432432460}
+  maxDensity: 1
+  currentDensity: 0
+  densityChange: 0.005
+  minCloudCoverage: 0
+  currentCloudCoverage: 1
+  cloudCoverageChange: 0.05
+  sunLight: {fileID: 157207113}
+  temperatureChange: 130
+--- !u!4 &1621179215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621179213}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1641946692
 GameObject:
   m_ObjectHideFlags: 0
@@ -10025,7 +10078,7 @@ GameObject:
   - component: {fileID: 1662615742}
   - component: {fileID: 1662615741}
   m_Layer: 0
-  m_Name: XP Earned Text
+  m_Name: go_XP Earned Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11688,6 +11741,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc3b53cfabb0474dbac4991a79318ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weatherManager: {fileID: 1621179214}
+  currentArrows:
+  - {fileID: 175913059}
+  - {fileID: 456330094}
+  - {fileID: 643415795}
+  - {fileID: 142462052}
+  - {fileID: 1131042455}
+  nextArrows:
+  - {fileID: 1498144853}
+  - {fileID: 812891582}
+  - {fileID: 704097409}
+  - {fileID: 1739826927}
+  - {fileID: 2135085677}
+  previousArrows:
+  - {fileID: 1018101318}
+  - {fileID: 1275374767}
+  - {fileID: 1859682993}
+  - {fileID: 1663825805}
+  - {fileID: 2127679866}
+  - {fileID: 751056712}
+  - {fileID: 441513705}
+  - {fileID: 966444634}
+  - {fileID: 2129162476}
+  - {fileID: 65448093}
+  - {fileID: 1402115301}
+  - {fileID: 162438056}
+  - {fileID: 1761004066}
+  - {fileID: 1411072770}
+  - {fileID: 1268918426}
+  - {fileID: 780294771}
+  - {fileID: 58954938}
+  - {fileID: 593733036}
+  - {fileID: 1082355991}
+  - {fileID: 1484696141}
+  - {fileID: 33312738}
+  - {fileID: 1825473910}
+  - {fileID: 1798200483}
+  - {fileID: 1308738104}
+  - {fileID: 274706455}
+  arrowSprites:
+  - {fileID: 21300000, guid: 0de816ef62181304785ef7d809439a7f, type: 3}
+  - {fileID: 21300000, guid: ec364b86bbc9cfc48beb28d9a4c0501c, type: 3}
+  - {fileID: 21300000, guid: e520c941c5d42654f97ac325291dee17, type: 3}
+  - {fileID: 21300000, guid: 9bf246c6a17f28346ac80c341ebef6bc, type: 3}
+  timerSlider: {fileID: 1862676698}
+  hitMessage: {fileID: 132406748}
+  scoreText: {fileID: 586323871}
+  streakText: {fileID: 655644311}
+  multiplierText: {fileID: 1617872702}
+  gameOverScreen: {fileID: 1504143063}
+  go_ScoreText: {fileID: 1447014391}
+  go_ShoddyWorkText: {fileID: 963703113}
+  go_TotalScoreText: {fileID: 752408336}
+  go_CoinEarnedText: {fileID: 24248238}
+  go_XPEarnedText: {fileID: 1662615741}
+  timerSpeed: 0.2
+  timerIncrease: 0.05
 --- !u!1 &1878975212
 GameObject:
   m_ObjectHideFlags: 0
@@ -12462,7 +12572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -7.500011, y: 0}
+  m_AnchoredPosition: {x: -7.5000153, y: 0}
   m_SizeDelta: {x: -15.000022, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2013410473
@@ -12582,10 +12692,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 96994c8bdabae134cb83323176672a7c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -12718,7 +12828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8235294}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33731,6 +33841,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1859500831}
   - {fileID: 1872439956}
+  - {fileID: 1621179215}
   - {fileID: 717862370}
   - {fileID: 1063242888}
   - {fileID: 955250115}
