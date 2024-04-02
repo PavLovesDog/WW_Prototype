@@ -49,6 +49,7 @@ public class MinigameManager_Cloud : MonoBehaviour
     public GameManager gm;
     public CMG_WeatherManager weatherManager;
 
+    public ParticleSystem crystalParticles;
     //Varibales for all UI aspects
     #region UI Variables
     // Arrow Images
@@ -126,6 +127,8 @@ public class MinigameManager_Cloud : MonoBehaviour
             gm = FindObjectOfType<GameManager>();
         }
 
+        
+
         hitsToWinLeft = sequencesToWin;
 
         //initalize first 2 arrows llists to access
@@ -166,6 +169,7 @@ public class MinigameManager_Cloud : MonoBehaviour
         }
  
         HandleUI();
+        HandleVisualParticleSystem();
     }
 
     private void HandleUI()
@@ -182,6 +186,41 @@ public class MinigameManager_Cloud : MonoBehaviour
         go_TotalScoreText.text = "Total: " + totalScore.ToString();
         go_CoinEarnedText.text = "Coin Earned: " + coinGained.ToString();
         go_XPEarnedText.text = "EX Earned: " + xpGained.ToString();
+    }
+
+    private void HandleVisualParticleSystem()
+    {
+        var emission = crystalParticles.emission; // Get the EmissionModule
+
+        if (hitsToWinLeft == sequencesToWin)
+        {
+            emission.rateOverTime = 2;
+        }
+        else if(hitsToWinLeft == 25)
+        {
+            emission.rateOverTime = 7;
+        }
+        else if (hitsToWinLeft == 20)
+        {
+            emission.rateOverTime = 10;
+        }
+        else if (hitsToWinLeft == 15)
+        {
+            emission.rateOverTime = 15;
+        }
+        else if (hitsToWinLeft == 10)
+        {
+            emission.rateOverTime = 25;
+        }
+        else if (hitsToWinLeft == 5)
+        {
+            emission.rateOverTime = 30;
+        }
+        else if (hitsToWinLeft == 0)
+        {
+            // full particles
+            emission.rateOverTime = 50;
+        }
     }
 
     #region Scoring & Game Function
