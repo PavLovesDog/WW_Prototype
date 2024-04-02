@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2697.6272, g: 2899.7932, b: 3480.4849, a: 1}
+  m_IndirectSpecularColor: {r: 2694.8245, g: 2895.3518, b: 3474.5356, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -540,41 +540,18 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 1, z: 0}
   speed: 5
   targetAngle: 9000
---- !u!1 &67426029 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7410421239837312837, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 8556300831596977175}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &67426034
+--- !u!114 &67426034 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8669927767537575130}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67426029}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545234d1f311b014f8ff00c168515b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
-  objectCanvas: {fileID: 0}
-  initiateDialogue: 0
-  NPCType: 0
-  startJob: 0
-  jobSceneName: WW_Job_Farming
-  NPCLines:
-  - '''Ello! You''se a Weather Worker ain''t ya?'
-  - Could ya make it rain on me farm so is that crop grows, ey?
-  - You can? That's the best news I 'eard all day. I can pay ya nicely too!
-  - What's that? you don't want to? Well good riddance to ya.
-  - ...Well? could ya make it rain on me farm so is that crop grows, ey?
-  buttonDialogue:
-  - Yeah
-  - No, sorry
-  - Continue
-  textSpeed: 0.02
 --- !u!1 &71636959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7410421239837312837, guid: 4d7e796b357c353468cba66a5fa7d6a0,
@@ -2061,6 +2038,128 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213581272}
   m_CullTransparentMesh: 1
+--- !u!1001 &263472267
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.1114573
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 26.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 58.993233
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908629682333537131, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC_Dialogue_Cloud_job
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: jobSceneName
+      value: WW_Job_Cloud_Magic
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[0]
+      value: Ahh, a Weather Worker!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[1]
+      value: I could use some help here focusing my forge crystal. The crystal needs
+        direct sunlight to focus. But the clouds keep blocking the sun. Could you
+        wisp them away for me??
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[2]
+      value: Great. I'll pay ya good gold for this.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[3]
+      value: You don't have the time? Well good luck finding a decent copper mug
+        in this town. I won't be forging anything of quality if I don't get that
+        crystal focussed.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[4]
+      value: ...Whadd'ya say? Help me focus that crystal?
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: buttonDialogue.Array.data[0]
+      value: Sure thing!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609730192765022234, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.14293341
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609730192765022234, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.2804604
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609730192765022234, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.41509432
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 414e13e761daa1e45ac4d9902e125de7, type: 3}
 --- !u!1001 &275305040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9882,6 +9981,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d9190beb618d2e49a56c9b0fe85f117, type: 3}
+--- !u!1001 &4956131008752035933
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.497
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 63.416
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636339617743013117, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789506380175804835, guid: 84519d202d73b7643b376fe97430bd3c,
+        type: 3}
+      propertyPath: m_Name
+      value: Focussing Crystal
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 84519d202d73b7643b376fe97430bd3c, type: 3}
 --- !u!1001 &5116856032844951229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10238,7 +10405,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5312882812090404177}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8556300831596977175
+--- !u!1001 &8669927767537575130
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10246,91 +10413,71 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 31.668
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 19.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 146777856608311004, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4069000215956187523, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+    - target: {fileID: 966206922915982966, guid: 414e13e761daa1e45ac4d9902e125de7,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1823688466}
-    - target: {fileID: 7410421239837312837, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
         type: 3}
-      propertyPath: m_Name
-      value: Interactable NPC 2D
+      propertyPath: m_LocalPosition.x
+      value: 2.12
       objectReference: {fileID: 0}
-    - target: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_LocalPosition.y
+      value: 31.668
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 19.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
         type: 3}
-      propertyPath: NPC_Dialogue
-      value: 
-      objectReference: {fileID: 67426034}
-    - target: {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      propertyPath: objectCanvas
-      value: 
+      propertyPath: m_LocalRotation.y
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9056214477699786156, guid: 4d7e796b357c353468cba66a5fa7d6a0, type: 3}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908629682333537131, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC_Dialogue_Rain_Job
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7410421239837312837, guid: 4d7e796b357c353468cba66a5fa7d6a0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 67426034}
-  m_SourcePrefab: {fileID: 100100000, guid: 4d7e796b357c353468cba66a5fa7d6a0, type: 3}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 414e13e761daa1e45ac4d9902e125de7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -10346,6 +10493,7 @@ SceneRoots:
   - {fileID: 1022747421}
   - {fileID: 1929634729}
   - {fileID: 89842593}
+  - {fileID: 4956131008752035933}
   - {fileID: 5312882812090404177}
   - {fileID: 179283053}
   - {fileID: 157207114}
@@ -10354,7 +10502,8 @@ SceneRoots:
   - {fileID: 1055696301}
   - {fileID: 928478833}
   - {fileID: 810724074}
-  - {fileID: 8556300831596977175}
+  - {fileID: 8669927767537575130}
+  - {fileID: 263472267}
   - {fileID: 944414664}
   - {fileID: 1283302287}
   - {fileID: 1335910932}
