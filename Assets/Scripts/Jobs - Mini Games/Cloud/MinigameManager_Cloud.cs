@@ -49,6 +49,7 @@ public class MinigameManager_Cloud : MonoBehaviour
     public GameManager gm;
     public CMG_WeatherManager weatherManager;
 
+    public ParticleSystem successfulHitParticles;
     public ParticleSystem crystalParticles;
     //Varibales for all UI aspects
     #region UI Variables
@@ -271,6 +272,11 @@ public class MinigameManager_Cloud : MonoBehaviour
             //Sequence complete! Full points!
             scoreMultiplier = 5; // max multiplier for max hits!
             AddPoints();
+            successfulHitParticles.Play(); // show hit
+
+            //Affect Weather
+            weatherManager.TransitionCloudShapeWrapper();
+            //weatherManager.TransitionCloudDensityWrapper();
 
             currentStreak++; // increment streak
             correctSequences++; // increment counter
@@ -302,9 +308,9 @@ public class MinigameManager_Cloud : MonoBehaviour
 
         if (numOfHits == 4)
             message = "SO CLOSE!";
-        if (numOfHits >= 1 && numOfHits <= 4)
+        if (numOfHits >= 3 && numOfHits < 4)
             message = "NEARLY...";
-        if (numOfHits == 0)
+        if (numOfHits <= 2)
             message = "MISS";
 
         //Set up a scoring thing with these number of hits!
@@ -1092,6 +1098,8 @@ public class MinigameManager_Cloud : MonoBehaviour
         totalScore = currentScore - shoddyWorkScore;
         //probably get the xp gained from score
         //Calculate xp gained based on total score
+
+        //if (gm.skillLevel[Cloud]) //level dependent score
         xpGained = totalScore / 3 /* * satisfactionMultiplier*/;
 
         //coin

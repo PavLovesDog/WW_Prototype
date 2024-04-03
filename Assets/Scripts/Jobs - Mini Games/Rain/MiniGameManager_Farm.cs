@@ -111,6 +111,10 @@ public class MiniGameManager_Farm : MonoBehaviour
         {
             // Successfully retrieved the clouds settings
         }
+
+        //set initial sky values
+        cloudsSettings.shapeFactor.value = 1.0f;
+        cloudsSettings.densityMultiplier.value = 0.0f;
     }
     
     private void Update()
@@ -132,11 +136,11 @@ public class MiniGameManager_Farm : MonoBehaviour
         //reward greater streaks of "hits"
         if (currentStreak >= 25)
         {
-            scoreMultiplier = 16;
+            scoreMultiplier = 8;
         }
         else if (currentStreak >= 15)
         {
-            scoreMultiplier = 8;
+            scoreMultiplier = 6;
         }
         else if (currentStreak >= 10)
         {
@@ -474,6 +478,11 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="arrowHitFlag"></param>
     private void HandleArrowHit(int identifier, bool arrowHitFlag)
     {
         if (arrowHitFlag)
