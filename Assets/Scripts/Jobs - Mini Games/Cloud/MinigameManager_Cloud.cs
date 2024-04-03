@@ -1101,7 +1101,7 @@ public class MinigameManager_Cloud : MonoBehaviour
         StartCoroutine(DelayEndScreen());
 
         //Add xp to proper magic skill abd amount
-        gm.AddSkillExperience(SkillType.Rain, xpGained);
+        gm.AddSkillExperience(SkillType.Cloud, xpGained);
 
     }
 
