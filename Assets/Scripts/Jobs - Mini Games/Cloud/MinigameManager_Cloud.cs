@@ -128,6 +128,8 @@ public class MinigameManager_Cloud : MonoBehaviour
             gm = FindObjectOfType<GameManager>();
         }
 
+        //Set sky volume 
+
         
 
         hitsToWinLeft = sequencesToWin;
@@ -1110,6 +1112,7 @@ public class MinigameManager_Cloud : MonoBehaviour
 
         //Add xp to proper magic skill abd amount
         gm.AddSkillExperience(SkillType.Cloud, xpGained);
+        gm.AddCoins((int)Mathf.Floor(totalScore / 10)); // need to change this calc toa variable value
 
     }
 

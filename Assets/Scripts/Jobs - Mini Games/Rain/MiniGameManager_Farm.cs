@@ -85,6 +85,8 @@ public class MiniGameManager_Farm : MonoBehaviour
     public float arrowsInPlayChange;
 
     [Header("Cloud Variables")]
+    private bool startRain = true;
+    public ParticleSystem rainParticles;
     public Volume globalVolume;
     private VolumetricClouds cloudsSettings;
     public float maxDensity = 1;
@@ -128,6 +130,7 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
 
         HandlePlayerInteraction();
+        HandleRainPareticleSystem();
     }
 
     #region Scoring & Difficulty Functions
@@ -555,6 +558,28 @@ public class MiniGameManager_Farm : MonoBehaviour
         }
     }
 
+    private void HandleRainPareticleSystem()
+    {
+        //wait until shape factor is at 0.6
+        if(cloudsSettings.shapeFactor.value <= 0.6f)
+        {
+            if(startRain)
+            {
+                rainParticles.Play(); // start rain
+                startRain = false;
+            }
+
+            //slowly increase rain particle emission to 200 (good rain look)
+            var emission = rainParticles.emission;
+            emission.rateOverTime = MapRange(cloudsSettings.shapeFactor.value, 0.3f, 0.6f, 200, 10);
+        }
+    }
+
+    float MapRange(float value, float fromSource, float toSource, float fromTarget, float toTarget)
+    {
+        return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+    }
+
     //buddy coroutine for Input press
     IEnumerator ChangeSpriteAplha(SpriteRenderer sprite)
     {
@@ -586,7 +611,8 @@ public class MiniGameManager_Farm : MonoBehaviour
 
         //Add xp to proper magic skill abd amount
         gm.AddSkillExperience(SkillType.Rain, xpGained);
-            
+        gm.AddCoins((int)Mathf.Floor(totalScore / 10));
+
     }
 
     IEnumerator DelayEndScreen()
