@@ -26,18 +26,20 @@ public class MinigameManager_Wind : MonoBehaviour
     ///     - slight tweaks to wind and cloud effects
     ///     - add function to adjust clouds in skybox
     ///     - add in score
+    ///     - Handle end game
+    ///     - calcualte end score
+    ///     - calcualte exp gained
+    ///     -implements difficulty adjustment depending on level
     /// </summary>
     [Header("References")]
     public GameManager gm;
     public CMG_WeatherManager weatherManager;
     public GameObject mgWindmill;
-    
     ParticleSystem windParticle;
 
     [Header("Minigame Variables")]
     public float trackSpeed;
     public Transform offset;
-    public bool targetHit = false;
     public int sequencesToWin = 30;
     public int correctSequences = 0;
     public int incorrectSequences = 0;
@@ -45,7 +47,7 @@ public class MinigameManager_Wind : MonoBehaviour
     public int startingRemaining = 30;
     public float critHitSize = 1;//size of critical hit zone
     public float regHitSize = 2; // size of regular hit zone either side of critical zone
-    
+
     HitZone regHit;
     HitZone critHit;
     float windmillSpeedAdjustment;
@@ -57,7 +59,7 @@ public class MinigameManager_Wind : MonoBehaviour
     public Image critHitZoneIndicator;
     public TMP_Text scoreMulti;
     public TMP_Text leftToHit;
-
+    public TMP_Text scoreText;
 
     [Header("Difficulty Multipliers")]
     public float difficultyMulti = 1.2f; //general difficulty, will adjust depending on magic level
@@ -74,69 +76,79 @@ public class MinigameManager_Wind : MonoBehaviour
     public int scoreMultiplier = 1;
     public int xpGained = 0;
     public int coinGained = 0;
-
-
-
-    void Start()
-    {
-        InitVariables();
-        if (gm == null)
-        {
-            gm = FindObjectOfType<GameManager>();
-        }
-        windParticle = FindObjectOfType<ParticleSystem>();
-        ResetMulti();
-        ResetLeft();
-        GenerateHitZone();
-
-        //Debug.Log("CURRENT SEQUENCE LIST: ");
-        //PrintSequenceList(currentSequences.Count);
-    }
-
+    /// <summary>
+    /// Just initialising some variables
+    /// </summary>
     private void InitVariables()
     {
         critHitSize = critHitZoneIndicator.rectTransform.rect.width;
         regHitSize = regHitZoneIndicator.rectTransform.rect.width;
         track.maxValue = track.transform.GetChild(0).GetComponent<RectTransform>().rect.width;
         offset.GetComponent<RectTransform>().anchoredPosition = new Vector2(-track.maxValue / 2, 0);
-
+        hitsToWinLeft = startingRemaining;
         trackSpeed = 100; // change this to go based of magic level
+        track.value = 0;
+    }
+
+
+
+    void Start()
+    {
+        if (gm == null)
+        {
+            gm = FindObjectOfType<GameManager>();
+        }
+        InitVariables();
+        windParticle = FindObjectOfType<ParticleSystem>();
+        ResetMulti();
+        LeftToHitUpdate();
+        GenerateHitZone();
+
+        //Debug.Log("CURRENT SEQUENCE LIST: ");
+        //PrintSequenceList(currentSequences.Count);
     }
 
     void Update()
     {
-        if (!targetHit)
+        MoveSlider();
+        //check for space key hit
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            MoveSlider();
-            //check for space key hit
-            if (Input.GetKeyDown(KeyCode.Space))
+            //check whether the position is within the bounds
+            if (track.value >= critHit.minHit && track.value <= critHit.maxHit)
             {
-                //check whether the position is within the bounds
-                if (track.value >= critHit.minHit && track.value <= critHit.maxHit)
-                {
-                    print("HIT CRIT");
-                    HandleHit(true);
-                    AdjustMulti(true);
-                }
-                else if (track.value >= regHit.minHit && track.value <= regHit.maxHit)
-                {
-                    print("hit reg");
-                    
-                    HandleHit(false);
-                    AdjustMulti(false);
-                }
-                else
-                {
-                    print("Miss");
-                    HandleMiss();
-                }
+                print("HIT CRIT");
+                HandleHit(true);
+                AdjustMulti(true);
+            }
+            else if (track.value >= regHit.minHit && track.value <= regHit.maxHit)
+            {
+                print("hit reg");
+
+                HandleHit(false);
+                AdjustMulti(false);
+            }
+            else
+            {
+                print("Miss");
+                HandleMiss();
+            }
+            //check if hits left is 0
+            if (hitsToWinLeft <= 0)
+            {
+                EndGame(true);
+            }
+            else
+            {
                 trackSpeed *= trackSpeedMod;
             }
-
         }
-
     }
-
+    #region MiniGameMechanics
+    /// <summary>
+    /// Gets called whenever the player hits the target
+    /// </summary>
+    /// <param name="isCrit">true if the critical zone was hit, false if the regular zone was hit</param>
     private void HandleHit(bool isCrit)
     {
         if (isCrit)
@@ -144,39 +156,46 @@ public class MinigameManager_Wind : MonoBehaviour
             trackSpeedMod = 1.15f;
             ModifyWind(true);
             windmillSpeedAdjustment = 1.5f;
-        } else
+            AddScore(15);
+            DisplayScore();
+        }
+        else
         {
             trackSpeedMod = 1.05f;
             ModifyWind(false);
             windmillSpeedAdjustment = 0.5f;
+            AddScore(10);
+            DisplayScore();
         }
-        AdjustLeft(true);
+        LeftToHitUpdate();
+        AdjustLeft();
         track.value = 0;
         AdjustWindmillRotation(windmillSpeedAdjustment);
         GenerateHitZone();
     }
-
+    /// <summary>
+    /// Gets called when the player misses the hit zone
+    /// </summary>
     private void HandleMiss()
     {
         trackSpeedMod = 0.9f;
         windmillSpeedAdjustment = -1f;
+        shoddyWorkScore++;
         AdjustWindmillRotation(windmillSpeedAdjustment);
-        AdjustLeft(false);
         ResetMulti();
     }
-
+    /// <summary>
+    /// Function that moves the slider. Checks whether the position is at the end or beginning of the track, if either is true then change direction
+    /// </summary>
     void MoveSlider()
     {
-        if (track.value >= track.maxValue)
-        {
-            sliderDirection *= -1;
-        }
-        else if (track.value <= track.minValue)
+        if (track.value >= track.maxValue || track.value <= track.minValue)
         {
             sliderDirection *= -1;
         }
         track.value += sliderDirection * trackSpeed * Time.deltaTime;
     }
+    #endregion
     #region Generation
     private void GenerateHitZone()
     {
@@ -229,7 +248,7 @@ public class MinigameManager_Wind : MonoBehaviour
 
     private void ModifyWind(bool faster)
     {
-        
+
         ParticleSystem.NoiseModule noise = windParticle.noise;
         var nStrength = noise.strength;
         ParticleSystem.ExternalForcesModule external = windParticle.externalForces;
@@ -249,7 +268,7 @@ public class MinigameManager_Wind : MonoBehaviour
     #region Scoring & Game Function
     void ResetMulti()
     {
-        scoreMultiplier = 0;
+        scoreMultiplier = 1;
         scoreMulti.text = "Score Multiplier: " + scoreMultiplier.ToString();
     }
     void AdjustMulti(bool isCrit)
@@ -260,21 +279,39 @@ public class MinigameManager_Wind : MonoBehaviour
             scoreMultiplier++;
         scoreMulti.text = "Score Multiplier: " + scoreMultiplier.ToString();
     }
-    void AdjustLeft(bool isHit )
+    void AdjustLeft()
     {
-        if (isHit)
-        {
-            hitsToWinLeft--;
-        } else
-        {
-            hitsToWinLeft = startingRemaining;
-        }
-            leftToHit.text = "Left to Hit: "+hitsToWinLeft.ToString();
+        hitsToWinLeft--;
     }
-    void ResetLeft()
+    private void LeftToHitUpdate()
     {
-        hitsToWinLeft = startingRemaining;
         leftToHit.text = "Left to Hit: " + hitsToWinLeft.ToString();
+    }
+    void AddScore(int amount)
+    {
+        currentScore += amount * scoreMultiplier;
+    }
+    void DisplayScore()
+    {
+        scoreText.text = "Score: " + currentScore.ToString();
+    }
+
+    void EndGame(bool reachedGoal)
+    {
+        if (reachedGoal)
+        {
+            //display end game dialog
+            //dialog displays exp gained, coins gained
+            //calculate end score
+            totalScore = (currentScore) - (int)(shoddyWorkScore * 1.5f);
+            //calculate end exp
+            int earnedExp = 0;
+            gm.AddSkillExperience(SkillType.Wind, earnedExp);
+            //calculate end coin
+            int earnedCoin = 0;
+            coinGained = earnedCoin;
+            //shows continue buttin, this leaves the scene and returns back to the overworld
+        }
     }
     //Function for UI button
     public void OnEndButtonPress()
