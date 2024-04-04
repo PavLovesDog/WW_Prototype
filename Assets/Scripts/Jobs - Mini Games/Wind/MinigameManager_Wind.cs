@@ -22,45 +22,48 @@ public class MinigameManager_Wind : MonoBehaviour
     }
 
     /// <summary>
-    /// Need:
-    ///     -slider
-    ///     - region for perfect hit
-    ///         - figure out how to display this on slider nicely
-    ///     - region for regular hit
-    ///         - figure out how to display this on slider nicely
-    ///     - score
-    ///     - score multiplier for consecutive hits
-    ///     - reference to windmill
-    ///
-    ///functions:
-    ///     - when moving slider handle move faster each time hit is accurate
+    /// TODO:
+    ///     - slight tweaks to wind and cloud effects
+    ///     - add function to adjust clouds in skybox
+    ///     - add in score
     /// </summary>
     [Header("References")]
     public GameManager gm;
     public CMG_WeatherManager weatherManager;
     public GameObject mgWindmill;
+    
+    ParticleSystem windParticle;
 
     [Header("Minigame Variables")]
     public float trackSpeed;
     public Transform offset;
-    float windmillSpeedAdjustment;
-    float sliderDirection = 1;
-    float difficultyMulti = 1.2f;
     public bool targetHit = false;
     public int sequencesToWin = 30;
     public int correctSequences = 0;
     public int incorrectSequences = 0;
     public int hitsToWinLeft;
-    HitZone regHit;
-    HitZone critHit;
+    public int startingRemaining = 30;
     public float critHitSize = 1;//size of critical hit zone
     public float regHitSize = 2; // size of regular hit zone either side of critical zone
+    
+    HitZone regHit;
+    HitZone critHit;
+    float windmillSpeedAdjustment;
+    float sliderDirection = 1;
 
     [Header("UI")]
     public Slider track;
     public Image regHitZoneIndicator;
     public Image critHitZoneIndicator;
+    public TMP_Text scoreMulti;
+    public TMP_Text leftToHit;
 
+
+    [Header("Difficulty Multipliers")]
+    public float difficultyMulti = 1.2f; //general difficulty, will adjust depending on magic level
+    public float multMod; //for use with external forces in windParticle
+    public float trackSpeedMod = 1;
+    public float noiseStrengthMod; //for use with noise strength
 
     [Header("Scoring")]
     public int currentStreak = 0;
@@ -81,7 +84,11 @@ public class MinigameManager_Wind : MonoBehaviour
         {
             gm = FindObjectOfType<GameManager>();
         }
+        windParticle = FindObjectOfType<ParticleSystem>();
+        ResetMulti();
+        ResetLeft();
         GenerateHitZone();
+
         //Debug.Log("CURRENT SEQUENCE LIST: ");
         //PrintSequenceList(currentSequences.Count);
     }
@@ -92,7 +99,7 @@ public class MinigameManager_Wind : MonoBehaviour
         regHitSize = regHitZoneIndicator.rectTransform.rect.width;
         track.maxValue = track.transform.GetChild(0).GetComponent<RectTransform>().rect.width;
         offset.GetComponent<RectTransform>().anchoredPosition = new Vector2(-track.maxValue / 2, 0);
-        
+
         trackSpeed = 100; // change this to go based of magic level
     }
 
@@ -108,43 +115,56 @@ public class MinigameManager_Wind : MonoBehaviour
                 if (track.value >= critHit.minHit && track.value <= critHit.maxHit)
                 {
                     print("HIT CRIT");
-                    windmillSpeedAdjustment = 1.5f;
-                    HandleHit();
+                    HandleHit(true);
+                    AdjustMulti(true);
                 }
                 else if (track.value >= regHit.minHit && track.value <= regHit.maxHit)
                 {
                     print("hit reg");
-                    windmillSpeedAdjustment = 0.5f;
-                    HandleHit();
+                    
+                    HandleHit(false);
+                    AdjustMulti(false);
                 }
                 else
                 {
                     print("Miss");
-                    windmillSpeedAdjustment = -1;
                     HandleMiss();
                 }
+                trackSpeed *= trackSpeedMod;
             }
 
         }
 
     }
 
-    private void HandleHit()
+    private void HandleHit(bool isCrit)
     {
-        AdjustWindmillRotation(windmillSpeedAdjustment);
+        if (isCrit)
+        {
+            trackSpeedMod = 1.15f;
+            ModifyWind(true);
+            windmillSpeedAdjustment = 1.5f;
+        } else
+        {
+            trackSpeedMod = 1.05f;
+            ModifyWind(false);
+            windmillSpeedAdjustment = 0.5f;
+        }
+        AdjustLeft(true);
         track.value = 0;
-        trackSpeed *= difficultyMulti;
+        AdjustWindmillRotation(windmillSpeedAdjustment);
         GenerateHitZone();
     }
 
     private void HandleMiss()
     {
+        trackSpeedMod = 0.9f;
+        windmillSpeedAdjustment = -1f;
         AdjustWindmillRotation(windmillSpeedAdjustment);
+        AdjustLeft(false);
+        ResetMulti();
     }
-    /// <summary>
-    /// max = 10 / 500
-    /// 
-    /// </summary>
+
     void MoveSlider()
     {
         if (track.value >= track.maxValue)
@@ -157,6 +177,7 @@ public class MinigameManager_Wind : MonoBehaviour
         }
         track.value += sliderDirection * trackSpeed * Time.deltaTime;
     }
+    #region Generation
     private void GenerateHitZone()
     {
 
@@ -164,7 +185,7 @@ public class MinigameManager_Wind : MonoBehaviour
         GenerateRegularHitZone();
     }
     /// <summary>
-    ///
+    ///Generate the zones for the perfect hit zone
     /// </summary>
     private void GeneratePerfectHitZone()
     {
@@ -176,7 +197,9 @@ public class MinigameManager_Wind : MonoBehaviour
         critHit = new HitZone(lower, upper);
         critHitZoneIndicator.rectTransform.anchoredPosition = new Vector2(upper - critHitSize / 2, newY);
     }
-
+    /// <summary>
+    /// Generate the hit zones for the regular  hit zone
+    /// </summary>
     private void GenerateRegularHitZone()
     {
         float upper = (critHit.maxHit - critHitSize / 2) + (regHitSize / 2);
@@ -185,6 +208,8 @@ public class MinigameManager_Wind : MonoBehaviour
         regHit = new HitZone(lower, upper);
         regHitZoneIndicator.rectTransform.anchoredPosition = new Vector2(upper - regHitSize / 2, newY);
     }
+    #endregion
+    #region Progress Adjustments
     /// <summary>
     /// Adjust windmill's blade speed by adding speed
     /// </summary>
@@ -202,11 +227,55 @@ public class MinigameManager_Wind : MonoBehaviour
         }
     }
 
+    private void ModifyWind(bool faster)
+    {
+        
+        ParticleSystem.NoiseModule noise = windParticle.noise;
+        var nStrength = noise.strength;
+        ParticleSystem.ExternalForcesModule external = windParticle.externalForces;
+        if (faster)
+        {
+            external.multiplier += 0.2f;
+            nStrength.constant += noiseStrengthMod;
 
-
+        }
+        else
+        {
+            external.multiplier -= 0.2f;
+            nStrength.constant -= noiseStrengthMod;
+        }
+    }
+    #endregion
     #region Scoring & Game Function
-
-
+    void ResetMulti()
+    {
+        scoreMultiplier = 0;
+        scoreMulti.text = "Score Multiplier: " + scoreMultiplier.ToString();
+    }
+    void AdjustMulti(bool isCrit)
+    {
+        if (isCrit)
+            scoreMultiplier += 2;
+        else
+            scoreMultiplier++;
+        scoreMulti.text = "Score Multiplier: " + scoreMultiplier.ToString();
+    }
+    void AdjustLeft(bool isHit )
+    {
+        if (isHit)
+        {
+            hitsToWinLeft--;
+        } else
+        {
+            hitsToWinLeft = startingRemaining;
+        }
+            leftToHit.text = "Left to Hit: "+hitsToWinLeft.ToString();
+    }
+    void ResetLeft()
+    {
+        hitsToWinLeft = startingRemaining;
+        leftToHit.text = "Left to Hit: " + hitsToWinLeft.ToString();
+    }
     //Function for UI button
     public void OnEndButtonPress()
     {
