@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public float smoothSpeed = 0.125f; // Adjust this value to change how quickly the camera follows the target
     public Vector3 offset; // Offset from the target's position
 
-    void FixedUpdate()
+    void Update()
     {
         Vector3 desiredPosition = target.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
