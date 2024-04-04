@@ -571,7 +571,7 @@ public class MiniGameManager_Farm : MonoBehaviour
 
             //slowly increase rain particle emission to 200 (good rain look)
             var emission = rainParticles.emission;
-            emission.rateOverTime = MapRange(cloudsSettings.shapeFactor.value, 0.3f, 0.6f, 200, 10);
+            emission.rateOverTime = MapRange(cloudsSettings.shapeFactor.value, 0.3f, 0.6f, 300, 10);
         }
     }
 
