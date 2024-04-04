@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     //List of skill levels
     public List<int> skillLevel = new List<int>();
     private int amountOfSkills = 0; // used to track how many skills in the game
-
+    public int coins = 0;
     #region SkillExperience
     /// <summary>
     /// Add experience to specific skill
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         skillExperience[index] += experience;
 
     }
-
+    #region Skill
     /// <summary>
     /// progress level and reset skill experience
     /// </summary>
@@ -107,6 +107,13 @@ public class GameManager : MonoBehaviour
             skillNeededExperience[i] = GenerateNewSkillTarget((SkillType)i);
         }
     }
+    //called when leveling up
+    public void LevelUpMagic(int index)
+    {
+        ProgressLevel((SkillType)index);
+    }
+    #endregion
+    #region Getters and Setters
     public string GetSkillProgressAmount(SkillType skillType)
     {
         return skillExperience[(int)skillType].ToString() + "/" + skillNeededExperience[(int)skillType].ToString();
@@ -115,6 +122,19 @@ public class GameManager : MonoBehaviour
     {
         return skillExperience[(int)skillType] / skillNeededExperience[(int)skillType];
     }
+    public float GetSkillLvl(SkillType skill)
+    {
+        return skillLevel[(int)skill];
+    }
+    public int GetPlayerCoins()
+    {
+        return coins;
+    }
+    public void AddCoins(int amount)
+    {
+        coins += amount;
+    }
+    #endregion
     #endregion
     // Start is called before the first frame update
     void Awake()
@@ -138,11 +158,7 @@ public class GameManager : MonoBehaviour
         //makes sure this persists throughout the game
         DontDestroyOnLoad(this.gameObject);
     }
-    //called when leveling up
-    public void LevelUpMagic(int index)
-    {
-        ProgressLevel((SkillType)index);
-    }
+    
     // Update is called once per frame
     void Update()
     {

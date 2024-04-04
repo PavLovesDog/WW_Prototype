@@ -25,11 +25,6 @@ public class MinigameManager_Wind : MonoBehaviour
     /// TODO:
     ///     - slight tweaks to wind and cloud effects
     ///     - add function to adjust clouds in skybox
-    ///     - add in score
-    ///     - Handle end game
-    ///     - calcualte end score
-    ///     - calcualte exp gained
-    ///     -implements difficulty adjustment depending on level
     /// </summary>
     [Header("References")]
     public GameManager gm;
@@ -76,11 +71,21 @@ public class MinigameManager_Wind : MonoBehaviour
     public int scoreMultiplier = 1;
     public int xpGained = 0;
     public int coinGained = 0;
+
+    [Header ("End Game Variables")]
+    public GameObject gameOverScreen;
+    public TMP_Text endScoreText;
+    public TMP_Text endShoddyWorkText;
+    public TMP_Text endTotalScoreText;
+    public TMP_Text endCoinEarnedText;
+    public TMP_Text endXPEarnedText;
+    public Button returnBtn;
     /// <summary>
     /// Just initialising some variables
     /// </summary>
     private void InitVariables()
     {
+        difficultyMulti = 1.1f +(0.1f * gm.GetSkillLvl(SkillType.Wind));
         critHitSize = critHitZoneIndicator.rectTransform.rect.width;
         regHitSize = regHitZoneIndicator.rectTransform.rect.width;
         track.maxValue = track.transform.GetChild(0).GetComponent<RectTransform>().rect.width;
@@ -167,8 +172,8 @@ public class MinigameManager_Wind : MonoBehaviour
             AddScore(10);
             DisplayScore();
         }
-        LeftToHitUpdate();
         AdjustLeft();
+        LeftToHitUpdate();
         track.value = 0;
         AdjustWindmillRotation(windmillSpeedAdjustment);
         GenerateHitZone();
@@ -183,6 +188,7 @@ public class MinigameManager_Wind : MonoBehaviour
         shoddyWorkScore++;
         AdjustWindmillRotation(windmillSpeedAdjustment);
         ResetMulti();
+        track.value = 0;
     }
     /// <summary>
     /// Function that moves the slider. Checks whether the position is at the end or beginning of the track, if either is true then change direction
@@ -296,23 +302,42 @@ public class MinigameManager_Wind : MonoBehaviour
         scoreText.text = "Score: " + currentScore.ToString();
     }
 
+    void CalculateRewards()
+    {
+        int shoddyMod =(int)(shoddyWorkScore * difficultyMulti);
+        //calculate score
+        totalScore = (currentScore) - shoddyMod;
+        //calculate earned exp
+        xpGained = (totalScore/3) * (int)difficultyMulti;
+        //calculate earned coin
+        coinGained = Mathf.FloorToInt(totalScore / 10);
+    }
     void EndGame(bool reachedGoal)
     {
         if (reachedGoal)
         {
+            trackSpeed = 0;
             //display end game dialog
-            //dialog displays exp gained, coins gained
-            //calculate end score
-            totalScore = (currentScore) - (int)(shoddyWorkScore * 1.5f);
-            //calculate end exp
-            int earnedExp = 0;
-            gm.AddSkillExperience(SkillType.Wind, earnedExp);
+            gameOverScreen.SetActive(true);
             //calculate end coin
-            int earnedCoin = 0;
-            coinGained = earnedCoin;
-            //shows continue buttin, this leaves the scene and returns back to the overworld
+            CalculateRewards();
+            gm.AddSkillExperience(SkillType.Wind, xpGained);
+            gm.AddCoins(coinGained);
+            //set dialog texts
+            SetEndGamesTexts();
         }
     }
+
+    private void SetEndGamesTexts()
+    {
+        int shoddyMod = (int)(shoddyWorkScore * difficultyMulti);
+        endCoinEarnedText.text = "Coin earned: " + coinGained.ToString();
+        endXPEarnedText.text = "XP earned: " + xpGained.ToString();
+        endTotalScoreText.text = "Total Score: " + totalScore.ToString();
+        endScoreText.text = "Score: " + currentScore.ToString();
+        endShoddyWorkText.text = shoddyMod.ToString() + " -  Shoddy Work";
+    }
+
     //Function for UI button
     public void OnEndButtonPress()
     {
