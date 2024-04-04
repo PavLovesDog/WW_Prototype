@@ -39,7 +39,7 @@ public enum SkillType
 }
 public class GameManager : MonoBehaviour
 {
-
+    public static GameManager _instance;
     //List of current Skill experience
     public List<float> skillExperience = new List<float>();
     //List of experience needed to level up skill
@@ -48,6 +48,17 @@ public class GameManager : MonoBehaviour
     public List<int> skillLevel = new List<int>();
     private int amountOfSkills = 0; // used to track how many skills in the game
     public int coins = 0;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance is null)
+                Debug.LogError("GameManaet is NULL");
+            return _instance;
+        }
+    }
+
     #region SkillExperience
     /// <summary>
     /// Add experience to specific skill
@@ -139,6 +150,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _instance = this;
         //gets the amount of skills in the SkillType enum
         amountOfSkills = Enum.GetNames(typeof(SkillType)).Length;
         //if we ever implement saving

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2698.0842, g: 2900.4612, b: 3481.5786, a: 1}
+  m_IndirectSpecularColor: {r: 2696.5432, g: 2898.3557, b: 3478.7075, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17210,6 +17210,160 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005335086}
   m_CullTransparentMesh: 1
+--- !u!1001 &2005532873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 31.668
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822991277134864047, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908629682333537131, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Name
+      value: NPC_Dialogue_Wind_Job
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: jobSceneName
+      value: WW_Job_Wind_Magic
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[0]
+      value: Hello there..yes, you sir. I hear you're one of those Weather Workers.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[1]
+      value: Think you could help out by harniessing your wind magic to power the
+        windmill?
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[2]
+      value: Oh fantastic! I'll show you to the mil, follow me.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: NPCLines.Array.data[3]
+      value: When you don't have the time, you don't have the time
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232650367727678609, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: buttonDialogue.Array.data[0]
+      value: Sure I'll help.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385409485047258366, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385409485047258366, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.358
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385409485047258366, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8660259
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385409485047258366, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.49999917
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385409485047258366, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609730192765022234, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609730192765022234, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.0141509175
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609730192765022234, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.95360684
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826232603283917200, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826232603283917200, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826232603283917200, guid: 414e13e761daa1e45ac4d9902e125de7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 414e13e761daa1e45ac4d9902e125de7, type: 3}
 --- !u!1001 &2011372418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19789,6 +19943,7 @@ SceneRoots:
   - {fileID: 810724074}
   - {fileID: 8669927767537575130}
   - {fileID: 263472267}
+  - {fileID: 2005532873}
   - {fileID: 5480472634778591587}
   - {fileID: 1283302287}
   - {fileID: 1335910932}

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WW_Job_Cloud_Magic.unity
     guid: 7c3e5ef99529b024d992cbd11ff7dfb6
+  - enabled: 1
+    path: Assets/Scenes/WW_Job_Wind_Magic.unity
+    guid: 2e2b22a42e16cd747be24767f430dae9
   m_configObjects: {}
