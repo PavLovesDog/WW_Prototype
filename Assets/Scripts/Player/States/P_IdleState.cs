@@ -33,7 +33,7 @@ public class P_IdleState : PlayerController
 
         //DO IDLING STUFF
         //  i.e play idle animation
-        float zRotateAngle = Mathf.Sin(Time.time * speed) * (maxAngle*0.5f);
+        float zRotateAngle = Mathf.Sin(Time.time * speed) * (maxAngle*0.35f);
         player.transform.eulerAngles = new Vector3(0, 0, zRotateAngle);
 
         //Listen for state change
