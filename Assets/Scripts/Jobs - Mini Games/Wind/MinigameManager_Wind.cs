@@ -28,7 +28,7 @@ public class MinigameManager_Wind : MonoBehaviour
     /// </summary>
     [Header("References")]
     public GameManager gm;
-    public CMG_WeatherManager weatherManager;
+    public WMG_WeatherManager weatherManager;
     public GameObject mgWindmill;
     ParticleSystem windParticle;
 
@@ -111,6 +111,9 @@ public class MinigameManager_Wind : MonoBehaviour
 
         //Debug.Log("CURRENT SEQUENCE LIST: ");
         //PrintSequenceList(currentSequences.Count);
+
+        //set initial sky values
+        weatherManager.InitializeSkyValues(0.85f, 0.8f);
     }
 
     void Update()

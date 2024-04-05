@@ -44,6 +44,7 @@ public class NPC_Dialogue : Interactable
     private Coroutine dialogueTypeCoroutine;
 
     private bool inGreetings = true;
+    private bool dialogueTyping = false;
 
     [Header("Text Variables")]
     public string[] NPCLines;
@@ -263,6 +264,9 @@ public class NPC_Dialogue : Interactable
         //reset FTIndex
         FTIndex = 5;
 
+        //enable greetings again..
+        inGreetings = true;
+
         //re-enable all buttons for next run
         acceptBtn.interactable = true;
         refuseBtn.interactable = true;
@@ -281,14 +285,14 @@ public class NPC_Dialogue : Interactable
     public void StartDialogue(int index)
     {
         if (dialogueTypeCoroutine != null)
-        {
+        { 
             StopCoroutine(dialogueTypeCoroutine);
-            StartCoroutine(TypeLine(index));
+            dialogueTypeCoroutine = StartCoroutine(TypeLine(index));
         }
         else
         {
-            if(dialogueTypeCoroutine != null)
-                StopCoroutine(dialogueTypeCoroutine);
+            if(dialogueTyping)
+                StopCoroutine(dialogueTypeCoroutine); // stop the generation
             dialogueTypeCoroutine = StartCoroutine(TypeLine(index));
         }
     }
@@ -320,6 +324,8 @@ public class NPC_Dialogue : Interactable
     /// <returns></returns>
     IEnumerator TypeLine(int index)
     {
+        dialogueTyping = true;
+
         //audioSource.Play(); // Play audio with characters
         npcText.text = string.Empty; // clear previous text
         //canvas.enabled = enabled; // ensure the canvas is enabled while characters to be written
@@ -330,6 +336,8 @@ public class NPC_Dialogue : Interactable
             yield return new WaitForSeconds(textSpeed);
         }
         //audioSource.Stop(); // stop audio once done
+
+        dialogueTyping = false;
     }
 
     //void NextLine()

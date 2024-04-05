@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
 
-public class CMG_WeatherManager : MonoBehaviour
+public class WMG_WeatherManager : MonoBehaviour
 {
     [Header("Cloud Variables")]
     public Volume globalVolume;
@@ -64,7 +64,7 @@ public class CMG_WeatherManager : MonoBehaviour
             //cloudsSettings.densityMultiplier.value += densityChange * Time.deltaTime * densityChangeSpeed;
 
             //increase cloud coverage
-            cloudsSettings.shapeFactor.value -= cloudCoverageChange * Time.deltaTime * shapeChangeSpeed;
+            //cloudsSettings.shapeFactor.value -= cloudCoverageChange * Time.deltaTime * shapeChangeSpeed;
         }
 
         UpdateLightTemperatureBasedOnCloudShape();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5126.4062, g: 5256.7075, b: 5558.321, a: 1}
+  m_IndirectSpecularColor: {r: 5728.19, g: 6072.6763, b: 6418.9697, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9623,7 +9623,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621179215}
-  - component: {fileID: 1621179214}
+  - component: {fileID: 1621179216}
   m_Layer: 0
   m_Name: Weather Manager
   m_TagString: Untagged
@@ -9631,30 +9631,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1621179214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621179213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7df9603e858cf544c854ddb49cf418a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  globalVolume: {fileID: 432432460}
-  maxDensity: 1
-  minDensity: 0
-  currentDensity: 0
-  densityChange: 0.05
-  currentCloudCoverage: 1
-  cloudCoverageChange: 0.05
-  densityChangeSpeed: 0.5
-  shapeChangeSpeed: 0.5
-  lightTempChangeSpeed: 2
-  sunLight: {fileID: 157207113}
-  temperatureChange: 130
 --- !u!4 &1621179215
 Transform:
   m_ObjectHideFlags: 0
@@ -9670,6 +9646,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621179216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621179213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53bc9010d61fb64a9f545664e85c88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalVolume: {fileID: 432432460}
+  maxDensity: 0.95
+  minDensity: 0
+  currentDensity: 0
+  densityChange: 0.05
+  currentCloudCoverage: 0.3
+  cloudCoverageChange: 0.05
+  densityChangeSpeed: 0.5
+  shapeChangeSpeed: 0.5
+  lightTempChangeSpeed: 2
+  sunLight: {fileID: 157207113}
+  temperatureChange: 130
 --- !u!1 &1639806684
 GameObject:
   m_ObjectHideFlags: 0
@@ -15293,7 +15293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
-  weatherManager: {fileID: 1621179214}
+  weatherManager: {fileID: 1621179216}
   mgWindmill: {fileID: 1333442834245462928}
   trackSpeed: 75
   offset: {fileID: 380578961}
@@ -15718,7 +15718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1999249054
 RectTransform:
   m_ObjectHideFlags: 0

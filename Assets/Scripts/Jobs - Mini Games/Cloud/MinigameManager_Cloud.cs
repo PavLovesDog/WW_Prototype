@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine.Rendering.HighDefinition;
 
 public struct Sequence
 {
@@ -129,8 +130,8 @@ public class MinigameManager_Cloud : MonoBehaviour
         }
 
         //Set sky volume 
+        weatherManager.InitializeSkyValues(0.7f, 0.8f);
 
-        
 
         hitsToWinLeft = sequencesToWin;
 
