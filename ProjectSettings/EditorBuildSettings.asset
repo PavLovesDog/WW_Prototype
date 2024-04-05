@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/WW_MainMenu.unity
+    guid: 97a072ef944dd4546a97a7f24f29f2a4
+  - enabled: 1
     path: Assets/Scenes/WW_Overworld.unity
     guid: c343d64d549f1c84fa0dd0f651396f0e
   - enabled: 1
@@ -17,4 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WW_Job_Wind_Magic.unity
     guid: 2e2b22a42e16cd747be24767f430dae9
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 643a52e97ad34da4f990d844b484324f,
+      type: 2}

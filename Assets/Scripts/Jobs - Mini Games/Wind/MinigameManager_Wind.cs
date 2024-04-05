@@ -345,7 +345,7 @@ public class MinigameManager_Wind : MonoBehaviour
     public void OnEndButtonPress()
     {
         // load the overworld scene
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     #endregion
 }

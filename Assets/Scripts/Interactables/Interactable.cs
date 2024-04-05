@@ -6,6 +6,8 @@ using TMPro;
 
 public class Interactable : MonoBehaviour
 {
+    GameManager gm;
+
     public bool canInteract = false;
     public Canvas objectCanvas;
 
@@ -14,6 +16,12 @@ public class Interactable : MonoBehaviour
 
     private void Awake()
     {
+        if (gm == null)
+        {
+            //find it!
+            gm = FindObjectOfType<GameManager>();
+        }
+
         if (objectCanvas == null)
         {
             //Find canvas object
@@ -78,6 +86,8 @@ public class Interactable : MonoBehaviour
 
                     TMP_Text canvasText = objectCanvas.GetComponentInChildren<TMP_Text>();
                     canvasText.text = "Added to Inventory!";
+
+                    gm.coins++; // TEMP
 
                     StartCoroutine(DelayedDeletion());
                 }

@@ -18,6 +18,7 @@ public class PlayerStateMananger : MonoBehaviour
     [Header("Current State")]
     public State state = State.IDLE; //initialize state to idle
 
+
     void Start()
     {
         // Get the active scene
@@ -34,6 +35,7 @@ public class PlayerStateMananger : MonoBehaviour
     void Update()
     {
         currentState?.OnStateUpdate();
+
     }
     /// <summary>
     /// 

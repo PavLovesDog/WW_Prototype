@@ -186,5 +186,10 @@ public class GameManager : MonoBehaviour
         {
             AddSkillExperience(SkillType.Cloud, 5);
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }

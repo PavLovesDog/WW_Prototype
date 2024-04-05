@@ -1127,6 +1127,6 @@ public class MinigameManager_Cloud : MonoBehaviour
     public void OnEndButtonPress()
     {
         // load the overworld scene
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

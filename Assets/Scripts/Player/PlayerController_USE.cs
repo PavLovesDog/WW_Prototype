@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class PlayerController : MonoBehaviour
+public class PlayerController_USE : MonoBehaviour
 {
-    protected PlayerStateMananger player;
-
     [Header("Actor variables")]
     public GameObject playerActor;
 
     [Header("Locomotion variables")]
-    public float xAxisInput = Input.GetAxis("Horizontal");
-    public float zAxisInput = Input.GetAxis("Vertical");   
+    public float xAxisInput;
+    public float zAxisInput; 
     public float speed = 7.5f;
 
     [Header("Interaction variables")]
@@ -19,27 +18,34 @@ public abstract class PlayerController : MonoBehaviour
     public LayerMask interactableLayer;
     private List<Interactable> lastInteractables = new List<Interactable>();
 
-    //constructor
-    public PlayerController(PlayerStateMananger player)
-    {
-        this.player = player;
+    float maxAngle = 10.0f;
 
-        //Initialize player reference
-        playerActor = GameObject.FindGameObjectWithTag("Player");
-
-        //Initialize layer mask for interactables
-        interactableLayer = LayerMask.GetMask("Interactable");
-        Debug.Log("Interactable Layer: " + interactableLayer);
-    }
-
-
-    public virtual void OnStateEnter() { }
-    public virtual void OnStateExit() { }
-    public virtual void OnStateUpdate() 
+    private void Update()
     {
         //always listen for input
         xAxisInput = Input.GetAxis("Horizontal");
         zAxisInput = Input.GetAxis("Vertical");
+
+        //Get movement Vector
+        Vector3 moveDirection = new Vector3(xAxisInput, 0, zAxisInput);
+
+        //apply to player object
+        transform.position += moveDirection * Time.deltaTime * speed;
+
+
+        //Listen for state change
+        if (xAxisInput == 0 && zAxisInput == 0) // no input
+        {
+            //DO IDLING STUFF
+            //  i.e play idle animation
+            float zRotateAngle = Mathf.Sin(Time.time * speed) * (maxAngle * 0.35f);
+            transform.eulerAngles = new Vector3(0, 0, zRotateAngle);
+        }
+        else
+        {
+            //reset rotations
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
 
         DetectInteractables();
     }
@@ -54,7 +60,7 @@ public abstract class PlayerController : MonoBehaviour
         ///NOTE interactables will have a seperate script on them to handle when the player presses the 'interact' button
         /// </summary>
 
-        Vector3 origin = player.transform.position;
+        Vector3 origin = transform.position;
 
         //get all colliders in radius on the object layer
         Collider[] hitColliders = Physics.OverlapSphere(origin, sphereCastRadius, interactableLayer);
