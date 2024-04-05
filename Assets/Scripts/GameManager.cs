@@ -175,18 +175,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        //DEBUG KEYS
-        //gives player 10 xp
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            //AddPlayerExperience(10);
-        }
-        //gives skill 5 xp
-        else if (Input.GetKeyDown(KeyCode.B))
-        {
-            AddSkillExperience(SkillType.Cloud, 5);
-        }
-
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();

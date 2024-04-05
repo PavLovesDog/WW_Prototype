@@ -21,11 +21,6 @@ public class MinigameManager_Wind : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// TODO:
-    ///     - slight tweaks to wind and cloud effects
-    ///     - add function to adjust clouds in skybox
-    /// </summary>
     [Header("References")]
     public GameManager gm;
     public WMG_WeatherManager weatherManager;
@@ -35,9 +30,6 @@ public class MinigameManager_Wind : MonoBehaviour
     [Header("Minigame Variables")]
     public float trackSpeed;
     public Transform offset;
-    public int sequencesToWin = 30;
-    public int correctSequences = 0;
-    public int incorrectSequences = 0;
     public int hitsToWinLeft;
     public int startingRemaining = 30;
     public float critHitSize = 1;//size of critical hit zone
@@ -58,13 +50,13 @@ public class MinigameManager_Wind : MonoBehaviour
 
     [Header("Difficulty Multipliers")]
     public float difficultyMulti = 1.2f; //general difficulty, will adjust depending on magic level
-    public float multMod; //for use with external forces in windParticle
-    public float trackSpeedMod = 1;
     public float noiseStrengthMod; //for use with noise strength
+    public float trackSpeedMod = 1;
 
     [Header("Scoring")]
     public int currentStreak = 0;
     public int currentScore = 0;
+    public float critMulti = 1.5f;
     private int scorePerHit = 10;
     private int shoddyWorkScore = 0;
     public int totalScore = 0;
@@ -72,7 +64,7 @@ public class MinigameManager_Wind : MonoBehaviour
     public int xpGained = 0;
     public int coinGained = 0;
 
-    [Header ("End Game Variables")]
+    [Header("End Game Variables")]
     public GameObject gameOverScreen;
     public TMP_Text endScoreText;
     public TMP_Text endShoddyWorkText;
@@ -85,13 +77,12 @@ public class MinigameManager_Wind : MonoBehaviour
     /// </summary>
     private void InitVariables()
     {
-        difficultyMulti = 1.1f +(0.1f * gm.GetSkillLvl(SkillType.Wind));
+
         critHitSize = critHitZoneIndicator.rectTransform.rect.width;
         regHitSize = regHitZoneIndicator.rectTransform.rect.width;
         track.maxValue = track.transform.GetChild(0).GetComponent<RectTransform>().rect.width;
         offset.GetComponent<RectTransform>().anchoredPosition = new Vector2(-track.maxValue / 2, 0);
         hitsToWinLeft = startingRemaining;
-        trackSpeed = 100; // change this to go based of magic level
         track.value = 0;
     }
 
@@ -103,6 +94,7 @@ public class MinigameManager_Wind : MonoBehaviour
         {
             gm = FindObjectOfType<GameManager>();
         }
+        InitDifficulty();
         InitVariables();
         windParticle = FindObjectOfType<ParticleSystem>();
         ResetMulti();
@@ -114,6 +106,13 @@ public class MinigameManager_Wind : MonoBehaviour
 
         //set initial sky values
         weatherManager.InitializeSkyValues(0.85f, 0.8f);
+    }
+
+    private void InitDifficulty()
+    {
+        difficultyMulti = 1.2f + (gm.GetSkillLvl(SkillType.Wind) * 0.15f);
+        startingRemaining = (int)(difficultyMulti * 30);
+        trackSpeed = 100 * difficultyMulti;
     }
 
     void Update()
@@ -148,7 +147,7 @@ public class MinigameManager_Wind : MonoBehaviour
             }
             else
             {
-                trackSpeed *= trackSpeedMod;
+                trackSpeed *= trackSpeedMod * difficultyMulti;
             }
         }
     }
@@ -164,7 +163,7 @@ public class MinigameManager_Wind : MonoBehaviour
             trackSpeedMod = 1.15f;
             ModifyWind(true);
             windmillSpeedAdjustment = 1.5f;
-            AddScore(15);
+            AddScore((int)(scorePerHit * critMulti));
             DisplayScore();
         }
         else
@@ -172,7 +171,7 @@ public class MinigameManager_Wind : MonoBehaviour
             trackSpeedMod = 1.05f;
             ModifyWind(false);
             windmillSpeedAdjustment = 0.5f;
-            AddScore(10);
+            AddScore(scorePerHit);
             DisplayScore();
         }
         AdjustLeft();
@@ -188,10 +187,9 @@ public class MinigameManager_Wind : MonoBehaviour
     {
         trackSpeedMod = 0.9f;
         windmillSpeedAdjustment = -1f;
-        shoddyWorkScore++;
+        shoddyWorkScore += 10;
         AdjustWindmillRotation(windmillSpeedAdjustment);
         ResetMulti();
-        track.value = 0;
     }
     /// <summary>
     /// Function that moves the slider. Checks whether the position is at the end or beginning of the track, if either is true then change direction
@@ -263,13 +261,10 @@ public class MinigameManager_Wind : MonoBehaviour
         ParticleSystem.ExternalForcesModule external = windParticle.externalForces;
         if (faster)
         {
-            external.multiplier += 0.2f;
             nStrength.constant += noiseStrengthMod;
-
         }
         else
         {
-            external.multiplier -= 0.2f;
             nStrength.constant -= noiseStrengthMod;
         }
     }
@@ -307,13 +302,13 @@ public class MinigameManager_Wind : MonoBehaviour
 
     void CalculateRewards()
     {
-        int shoddyMod =(int)(shoddyWorkScore * difficultyMulti);
+        int shoddyMod = (int)(shoddyWorkScore * difficultyMulti);
         //calculate score
-        totalScore = (currentScore) - shoddyMod;
+        totalScore = (currentScore) - (int)(shoddyMod * difficultyMulti);
         //calculate earned exp
-        xpGained = (totalScore/3) * (int)difficultyMulti;
+        xpGained = (totalScore / 3) * (int)difficultyMulti;
         //calculate earned coin
-        coinGained = Mathf.FloorToInt(totalScore / 10);
+        coinGained = Mathf.FloorToInt(totalScore / (10 - (gm.GetSkillLvl(SkillType.Wind)*0.1f)));
     }
     void EndGame(bool reachedGoal)
     {
@@ -322,7 +317,7 @@ public class MinigameManager_Wind : MonoBehaviour
             trackSpeed = 0;
             //display end game dialog
             gameOverScreen.SetActive(true);
-            //calculate end coin
+            //calculate end rewards
             CalculateRewards();
             gm.AddSkillExperience(SkillType.Wind, xpGained);
             gm.AddCoins(coinGained);
