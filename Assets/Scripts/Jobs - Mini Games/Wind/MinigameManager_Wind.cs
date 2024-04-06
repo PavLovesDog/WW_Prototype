@@ -112,7 +112,7 @@ public class MinigameManager_Wind : MonoBehaviour
     {
         difficultyMulti = 1.2f + (gm.GetSkillLvl(SkillType.Wind) * 0.15f);
         startingRemaining = (int)(difficultyMulti * 30);
-        trackSpeed = 100 * difficultyMulti;
+        trackSpeed = 80 * difficultyMulti;
     }
 
     void Update()
@@ -147,7 +147,14 @@ public class MinigameManager_Wind : MonoBehaviour
             }
             else
             {
-                trackSpeed *= trackSpeedMod * difficultyMulti;
+                trackSpeed *= trackSpeedMod;
+                if(trackSpeed <= 50)
+                {
+                    trackSpeed = 50;
+                } else if (trackSpeed >= 1000)
+                {
+                    trackSpeed = 1000;
+                }
             }
         }
     }
